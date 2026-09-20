@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   BASE
+   ============================================================ */
+:root {
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans: "GeistSans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-cream, #f5f1ea);
+  color: #111111;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Section numbering & label helpers */
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Besar bendera / tag mono kecil */
+  .tag-mono {
+    @apply font-mono text-[11px] tracking-[0.2em] uppercase;
+  }
+
+  /* Para teks body utama */
+  .lede {
+    @apply text-lg leading-relaxed text-ink-soft sm:text-xl;
+  }
+
+  /* Garis putus-putus "dot leader" seperti menu restoran */
+  .dot-leader {
+    flex: 1;
+    margin-inline: 0.75rem;
+    border-bottom: 2px dotted rgba(17, 17, 17, 0.35);
+    transform: translateY(-0.35em);
+    min-width: 2rem;
+  }
+
+  /* Link dengan underline animasi */
+  .link-underline {
+    position: relative;
+    background-image: linear-gradient(
+      90deg,
+      currentColor 0%,
+      currentColor 50%,
+      transparent 50%
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+    text-decoration: none;
+    padding-bottom: 2px;
+    transition: background-position 0.35s ease;
+  }
+  .link-underline:hover {
+    background-position: 0 0;
+  }
+
+  /* Marker highlight tangan ("tampil") */
+  .marker {
+    position: relative;
+    white-space: nowrap;
+    display: inline-block;
+    z-index: 0;
+  }
+  .marker::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: -2%;
+    right: -2%;
+    bottom: 0.04em;
+    height: 0.38em;
+    background: linear-gradient(
+      100deg,
+      rgba(255, 77, 46, 0.95),
+      rgba(232, 255, 90, 0.85)
+    );
+    border-radius: 0.12em;
+    transform: rotate(-1.2deg) scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: marker-in 0.9s 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @keyframes marker-in {
+    from {
+      transform: rotate(-1.2deg) scaleX(0);
+    }
+    to {
+      transform: rotate(-1.2deg) scaleX(1);
+    }
+  }
+
+  /* Tekstur grain / noise di seluruh background */
+  .noise-layer {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Cursor default disembunyikan jika custom cursor aktif (desktop) */
+  @media (min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .has-custom-cursor,
+    .has-custom-cursor a,
+    .has-custom-cursor button,
+    .has-custom-cursor * {
+      cursor: none;
+    }
+  }
+
+  /* Input form ala "kertas"' */
+  .field {
+    @apply w-full rounded-none border-b-2 border-ink/25 bg-transparent px-1 py-3 text-base outline-none transition-colors;
+  }
+  .field:focus {
+    border-color: #ff4d2e;
+  }
+  .field-label {
+    @apply tag-mono mb-1 block text-ink/60;
+  }
+
+  /* Daftar pilihan custom checkbox */
+  .check-bullet {
+    @apply inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-deep text-lime;
+  }
+}
+
+::selection {
+  background: #ff4d2e;
+  color: #fff5ef;
+}
+
+/* Scrollbar halus */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f1ea;
+}
+::-webkit-scrollbar-thumb {
+  background: #111111;
+  border-radius: 0;
+}
+
+/* Aksesibilitas: hormati prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track,
+  .marquee-track * {
+    animation: none !important;
+  }
+}
