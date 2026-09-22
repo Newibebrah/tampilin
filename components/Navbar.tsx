@@ -41,11 +41,8 @@ export function Navbar() {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
           <Link href="/" className="flex items-center gap-2">
-            <span className="grid h-9 w-9 -rotate-6 place-items-center rounded-xl bg-accent font-serif text-xl font-black text-cream shadow-hard-sm transition-transform hover:rotate-0">
-              t.
-            </span>
             <span className="font-serif text-xl font-black tracking-tighter text-ink">
-              tampilin<span className="text-accent">.</span>
+              tampilin
             </span>
           </Link>
 
