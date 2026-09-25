@@ -1,84 +1,78 @@
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Marquee } from "@/components/Marquee";
-import { Reveal, ClipReveal, StaggerGroup, StaggerItem } from "@/components/motion";
+import { ArrowUpRight } from "lucide-react";
 import { SectionLabel } from "@/components/SectionLabel";
-import { SITE } from "@/content/site";
+import { PROJECTS } from "@/content/projects";
+import { waLink } from "@/lib/utils";
 
 export const metadata = {
   title: "Preview",
-  description: "Contoh desain website hasil kerja tampilin.online — beneran kami kerjain, bukan template.",
+  description: "Contoh desain website hasil kerja tampilin.online — dibuat untuk dipakai, bukan sekadar dipamerkan.",
 };
 
 export default function PreviewPage() {
   return (
-    <>
-      <main className="px-5 pb-24 pt-32 md:px-8 md:pt-40">
-        <div className="mx-auto max-w-6xl">
-          <SectionLabel no="02" label="Preview" />
-          <h1 className="mt-6 max-w-3xl font-serif text-6xl font-black leading-[0.9] tracking-tighter md:text-7xl">
-            Lihat tampilan,{" "}
-            <span className="relative inline-block">
-              <em className="relative z-10">sebelum</em>
-              <span className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 bg-accent" />
-            </span>{" "}
-            pesan.
-          </h1>
-          <p className="mt-8 max-w-xl font-serif text-xl leading-snug text-ink/70">
-            Halaman preview biar kamu nggak nebak-nebak hasilnya. Semua project di bawah
-            ini dikerjain beneran oleh tampilin.online buat klien, bukan mockup.
-          </p>
+    <main>
+      <section className="border-b border-line bg-canvas">
+        <div className="section-shell py-20 sm:py-28 lg:py-32">
+          <SectionLabel no="02" label="Preview karya" />
+          <h1 className="display-title mt-7 max-w-4xl">Lihat hasil sebelum Anda <span className="text-accent">memutuskan.</span></h1>
+          <p className="lede mt-7 max-w-2xl">Beberapa website yang kami bangun untuk bisnis dengan konteks, industri, dan kebutuhan yang berbeda. Semua dibuat agar mudah dipakai.</p>
         </div>
+      </section>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-12">
-          {/* ===== BESAR (unggulan) ===== */}
-          <StaggerGroup className="md:col-span-7">
-            <StaggerItem>
-              <article className="group relative overflow-hidden rounded-[2rem] border-2 border-ink bg-deep p-8 pb-12 shadow-hard-sm md:min-h-[28rem]">
-                <span className="absolute -right-6 -top-6 h-40 w-40 -rotate-12 rounded-full bg-accent/20 blur-2xl" />
-                <p className="font-mono text-sm uppercase tracking-[0.3em] text-cream/40">Feature — 2025</p>
-                <h3 className="mt-8 max-w-md font-serif text-4xl font-black leading-[0.9] tracking-tight text-cream md:text-5xl">
-                  Nama Project Besar
-                </h3>
-                <p className="mt-4 max-w-sm font-mono text-sm text-cream/60">
-                  Deskripsi singkat project unggulan yang paling mewakili gaya tampilin.online.
-                </p>
-                <span className="mt-10 inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wide text-accent">
-                  Lihat studi kasus <ArrowUpRight className="h-4 w-4" />
-                </span>
-              </article>
-            </StaggerItem>
-          </StaggerGroup>
-
-          <div className="grid gap-6 md:col-span-5">
-            {[
-              { title: "Project Dua", tag: "UMKM" },
-              { title: "Project Tiga", tag: "E-Commerce" },
-            ].map((proj) => (
-              <article key={proj.title} className="group overflow-hidden rounded-[2rem] border-2 border-ink bg-paper p-6 shadow-hard-sm transition-transform hover:-translate-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold uppercase tracking-wide text-accent">{proj.tag}</span>
-                  <ArrowUpRight className="h-4 w-4 text-ink/30 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      <section className="section-shell py-16 sm:py-24">
+        <div className="mb-8 flex items-center justify-between gap-4">
+          <p className="text-sm text-ink-muted">6 project terpilih</p>
+          <p className="tag-mono text-ink-muted">UMKM · personal · e-commerce</p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          {PROJECTS.slice(0, 6).map((project, index) => (
+            <Link key={project.id} href={project.url} className="group rounded-2xl border border-line bg-paper p-3 transition-colors duration-150 hover:border-accent/50">
+              <div
+                className="relative flex min-h-64 flex-col justify-between overflow-hidden rounded-xl p-6 text-white sm:min-h-72"
+                style={{ background: `linear-gradient(135deg, ${project.g1}, ${project.g2})` }}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="rounded-full bg-black/20 px-3 py-1 text-[11px] font-semibold backdrop-blur-sm">{project.category}</span>
+                  <span className="rounded-full border border-white/25 px-3 py-1 text-[11px]">{project.year}</span>
                 </div>
-                <div className="mt-8 h-28 rounded-2xl bg-gradient-to-br from-deep to-accent/40" />
-                <h4 className="mt-6 font-serif text-2xl font-black tracking-tight">{proj.title}</h4>
-                <p className="mt-2 font-mono text-xs text-ink/50">Deskripsi singkat project ini.</p>
-              </article>
-            ))}
-          </div>
+                <div>
+                  <p className="text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">{project.name}</p>
+                  <p className="mt-2 max-w-xs text-xs leading-5 text-white/75">{project.client}</p>
+                </div>
+                <span className="absolute bottom-6 right-6 grid h-10 w-10 place-items-center rounded-full bg-white/20 text-white opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+                  <ArrowUpRight className="h-4 w-4" />
+                </span>
+              </div>
+              <div className="px-3 pb-3 pt-5">
+                <div className="flex items-center justify-between gap-4">
+                  <h2 className="text-lg font-semibold tracking-[-0.025em] text-ink">{project.name}</h2>
+                  <span className="font-mono text-xs text-ink-muted">0{index + 1}</span>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-ink-muted">{project.deskripsi}</p>
+              </div>
+            </Link>
+          ))}
         </div>
+      </section>
 
-        <div className="mt-16 rounded-[2rem] border-2 border-ink bg-lime p-10 md:p-16">
-          <p className="font-mono text-sm font-bold uppercase tracking-[0.3em] text-ink/60">Cinematic scroll</p>
-          <h2 className="mt-4 max-w-2xl font-serif text-4xl font-black leading-[0.9] tracking-tight md:text-6xl">
-            Mau lihat preview <span className="text-accent">asli</span> yang bisa kamu scroll?
-          </h2>
-          <Link href="/preview" className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-mono text-sm font-bold uppercase tracking-wide text-cream">
-            <Sparkles className="h-4 w-4" /> Ke halaman preview penuh
-          </Link>
+      <section className="section-shell pb-24 sm:pb-32">
+        <div className="rounded-3xl bg-deep p-8 text-white sm:p-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:p-16">
+          <div>
+            <p className="eyebrow text-lime">Punya kebutuhan serupa?</p>
+            <h2 className="mt-5 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.04em] sm:text-4xl">Mari bikin versi yang terasa pas untuk brand Anda.</h2>
+          </div>
+          <a
+            href={waLink("Halo tampilin.online, saya melihat preview dan ingin konsultasi.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button-primary mt-8 shrink-0 bg-accent hover:bg-accent-deep lg:mt-0"
+          >
+            Diskusikan kebutuhan
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
-      </main>
-    </>
+      </section>
+    </main>
   );
 }

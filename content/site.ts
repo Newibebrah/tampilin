@@ -17,11 +17,9 @@ export const NAV_LINKS = [
   { href: "/katalog", label: "Katalog" },
   { href: "/preview", label: "Preview" },
   { href: "/tentang", label: "Tentang" },
-  { href: "/kontak", label: "Kontak" },
 ] as const;
 
 export const MARQUEE_KEYWORDS =
   "Landing Page • Portofolio • UMKM • E-Commerce • Personal Branding • Website •";
 
-export const FOOTER_NOTE =
-  "Dibuat dengan kopi hangat, banyak revisi, dan sedikit drama deadline.";
+export const FOOTER_NOTE = "Dibangun dengan proses yang jelas dan komunikasi yang manusiawi.";

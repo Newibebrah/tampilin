@@ -1,67 +1,58 @@
-import { ArrowUpRight, Instagram, Mail, MapPin, Clock } from "lucide-react";
+import { ArrowUpRight, Clock3, Instagram, Mail, MapPin, MessageCircle } from "lucide-react";
 import Link from "next/link";
-import { cn, waLink } from "@/lib/utils";
+import { waLink } from "@/lib/utils";
 import { SITE, NAV_LINKS, FOOTER_NOTE } from "@/content/site";
-import { Marquee } from "@/components/Marquee";
-import { RotatingBadge } from "@/components/RotatingBadge";
-
-const MARQUEE_WORDS = [
-  "Tampil online",
-  "Nggak asal jadi",
-  "Desain custom",
-  "Cepat",
-  "Jujur soal harga",
-  "UMKM bangga",
-];
 
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-ink/10 bg-ink text-cream">
-      <div className="border-b border-cream/10 py-4">
-        <Marquee items={MARQUEE_WORDS} slow className="font-serif text-2xl font-black tracking-tight text-cream/90" />
+    <footer className="bg-ink text-white">
+      <div className="border-b border-white/10">
+        <div className="section-shell grid gap-8 py-14 md:grid-cols-[1fr_auto] md:items-end md:py-16">
+          <div>
+            <p className="eyebrow text-lime">Siap mulai?</p>
+            <h2 className="mt-4 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.04em] sm:text-4xl">
+              Ceritakan bisnis Anda. Kami bantu bikin website yang layak dipakai.
+            </h2>
+          </div>
+          <a
+            href={waLink("Halo tampilin.online, saya mau mendiskusikan kebutuhan website saya.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button-primary bg-accent hover:bg-accent-deep"
+          >
+            Konsultasi via WhatsApp
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
       </div>
 
-      <div className="grid gap-10 px-5 py-14 md:grid-cols-12 md:px-8">
+      <div className="section-shell grid gap-12 py-14 md:grid-cols-12 md:py-16">
         <div className="md:col-span-5">
-          <Link href="/" className="inline-flex items-center gap-2">
-            <span className="grid h-10 w-10 -rotate-6 place-items-center rounded-xl bg-accent font-serif text-2xl font-black text-cream shadow-sticker-sm">
-              t.
-            </span>
-            <span className="font-serif text-3xl font-black tracking-tighter">
+          <Link href="/" className="inline-flex items-center gap-2.5">
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent text-sm font-bold text-white">t.</span>
+            <span className="text-xl font-semibold tracking-[-0.03em]">
               tampilin<span className="text-accent">.</span>
             </span>
           </Link>
-          <p className="mt-4 max-w-xs font-mono text-sm leading-relaxed text-cream/60">
-            {SITE.tagline}
-          </p>
+          <p className="mt-5 max-w-sm text-sm leading-7 text-white/60">{SITE.tagline}</p>
           <a
-            href={waLink("Halo tampilin.online, saya mau tanya soal website.")}
+            href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="group mt-8 inline-flex items-center gap-3 rounded-2xl bg-accent px-6 py-4 font-mono text-sm font-bold uppercase text-cream shadow-sticker-sm transition-transform hover:-translate-y-0.5"
+            className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-white transition-colors duration-150 hover:text-lime"
           >
-            Mulai dari &quot;Halo&quot;
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            {SITE.whatsappDisplay}
+            <ArrowUpRight className="h-4 w-4" />
           </a>
-
-          <RotatingBadge
-            text="TAMPILIN ONLINE • WEB JASA • UMKM • "
-            className="h-32 w-32 text-cream"
-            label="t."
-          />
         </div>
 
         <div className="md:col-span-3">
-          <h4 className="font-mono text-xs uppercase tracking-[0.25em] text-cream/40">Menu</h4>
+          <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Navigasi</h3>
           <ul className="mt-5 space-y-3">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="group inline-flex items-center gap-2 font-serif text-xl font-bold text-cream/80 transition-colors hover:text-cream"
-                >
+                <Link href={link.href} className="text-sm text-white/70 transition-colors duration-150 hover:text-white">
                   {link.label}
-                  <ArrowUpRight className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
                 </Link>
               </li>
             ))}
@@ -69,54 +60,47 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-4">
-          <h4 className="font-mono text-xs uppercase tracking-[0.25em] text-cream/40">Ngobrol</h4>
-          <ul className="mt-5 space-y-4 text-sm">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Hubungi kami</h3>
+          <ul className="mt-5 space-y-4 text-sm text-white/70">
             <li>
               <a
                 href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 font-mono text-cream/70 transition-colors hover:text-cream"
+                className="flex items-center gap-3 transition-colors duration-150 hover:text-white"
               >
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-cream/5">
-                  <Instagram className="h-4 w-4" />
-                </span>
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/5"><MessageCircle className="h-4 w-4" /></span>
                 {SITE.whatsappDisplay}
               </a>
             </li>
             <li>
-              <a
-                href={`mailto:${SITE.email}`}
-                className="flex items-center gap-3 font-mono text-cream/70 transition-colors hover:text-cream"
-              >
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-cream/5">
-                  <Mail className="h-4 w-4" />
-                </span>
+              <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 transition-colors duration-150 hover:text-white">
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/5"><Mail className="h-4 w-4" /></span>
                 {SITE.email}
               </a>
             </li>
-            <li className="flex items-center gap-3 font-mono text-cream/70">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-cream/5">
-                <Clock className="h-4 w-4" />
-              </span>
+            <li>
+              <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 transition-colors duration-150 hover:text-white">
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/5"><Instagram className="h-4 w-4" /></span>
+                {SITE.instagram}
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/5"><Clock3 className="h-4 w-4" /></span>
               {SITE.hours}
             </li>
-            <li className="flex items-center gap-3 font-mono text-cream/70">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-cream/5">
-                <MapPin className="h-4 w-4" />
-              </span>
+            <li className="flex items-center gap-3">
+              <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/5"><MapPin className="h-4 w-4" /></span>
               {SITE.city}
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-cream/10 px-5 py-6 md:px-8">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 font-mono text-xs text-cream/40 md:flex-row md:items-center md:justify-between">
-          <p>
-            © {SITE.since} {SITE.name}. {FOOTER_NOTE}
-          </p>
-          <p className="uppercase tracking-[0.25em]">tampil · rapi · jalan</p>
+      <div className="border-t border-white/10">
+        <div className="section-shell flex flex-col gap-2 py-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {SITE.since} {SITE.name}. {FOOTER_NOTE}</p>
+          <p className="uppercase tracking-[0.16em]">Web yang jelas, profesional, dan siap dipakai</p>
         </div>
       </div>
     </footer>

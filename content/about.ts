@@ -50,7 +50,6 @@ export const TOOLS: Tool[] = [
   { name: "Next.js", kind: "Framework" },
   { name: "TypeScript", kind: "Bahasa" },
   { name: "Tailwind", kind: "Styling" },
-  { name: "Framer Motion", kind: "Animasi" },
   { name: "Vercel", kind: "Deploy" },
   { name: "Payload", kind: "CMS" },
   { name: "Cloudinary", kind: "Media" },

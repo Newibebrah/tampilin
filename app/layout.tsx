@@ -1,10 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 import { SITE } from "@/content/site";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { ScrollProgress } from "@/components/ScrollProgress";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
@@ -26,18 +24,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F5F1EA",
+  themeColor: "#F7F7F3",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className="bg-cream">
-      <body className={cn("font-sans text-ink antialiased selection:bg-accent selection:text-cream")}>
-        <ScrollProgress />
+    <html lang="id" className="bg-canvas">
+      <body className="min-h-screen bg-canvas font-sans text-ink antialiased">
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <div className="min-h-[70vh]">{children}</div>
         <Footer />
       </body>
     </html>

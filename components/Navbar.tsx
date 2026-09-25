@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, Instagram } from "lucide-react";
+import { ArrowUpRight, Menu, MessageCircle, X } from "lucide-react";
 import { cn, waLink } from "@/lib/utils";
 import { SITE, NAV_LINKS } from "@/content/site";
 
@@ -14,7 +13,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -31,32 +30,42 @@ export function Navbar() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <>
       <header
         className={cn(
-          "fixed left-0 right-0 top-0 z-50",
-          scrolled ? "border-b border-ink/10 bg-cream/90 backdrop-blur-md" : "bg-transparent",
+          "sticky top-0 z-50 border-b transition-colors duration-150",
+          scrolled ? "border-line bg-canvas/95 backdrop-blur-md" : "border-transparent bg-canvas",
         )}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="grid h-9 w-9 -rotate-6 place-items-center rounded-xl bg-accent font-serif text-xl font-black text-cream shadow-hard-sm transition-transform hover:rotate-0">
+        <div className="section-shell flex h-[4.5rem] items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5" aria-label="Kembali ke beranda">
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-ink text-sm font-bold text-white">
               t.
             </span>
-            <span className="font-serif text-xl font-black tracking-tighter text-ink">
-              ampilin
+            <span className="text-lg font-semibold tracking-[-0.03em] text-ink">
+              tampilin<span className="text-accent">.</span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={pathname === link.href ? "page" : undefined}
                 className={cn(
-                  "rounded-full px-4 py-2 font-mono text-sm uppercase tracking-wide text-ink/70 transition-colors hover:bg-ink hover:text-cream",
-                  pathname === link.href && "bg-ink text-cream",
+                  "rounded-md px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors duration-150 hover:bg-cream-dim hover:text-ink",
+                  pathname === link.href && "bg-cream-dim text-ink",
                 )}
               >
                 {link.label}
@@ -66,7 +75,7 @@ export function Navbar() {
               href={waLink("Halo tampilin.online, saya mau tanya soal website.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 font-mono text-sm font-bold uppercase text-cream shadow-hard-sm transition-transform hover:-translate-y-0.5"
+              className="button-primary ml-3"
             >
               Mulai proyek
               <ArrowUpRight className="h-4 w-4" />
@@ -74,73 +83,69 @@ export function Navbar() {
           </nav>
 
           <button
+            type="button"
             onClick={() => setOpen(true)}
-            className="grid h-11 w-11 place-items-center rounded-xl border-2 border-ink bg-cream lg:hidden"
+            className="icon-button lg:hidden"
             aria-label="Buka menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             <Menu className="h-5 w-5" />
           </button>
         </div>
       </header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="fixed inset-0 z-[70] flex flex-col bg-ink text-cream"
-            initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
-            animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
-            exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="flex items-center justify-between px-5 py-4">
-              <span className="font-serif text-2xl font-black tracking-tighter">
-                tampilin<span className="text-lime">.</span>
+      {open && (
+        <div
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigasi mobile"
+          className="fixed inset-0 z-[60] flex flex-col bg-canvas lg:hidden"
+        >
+          <div className="section-shell flex h-[4.5rem] items-center justify-between border-b border-line">
+            <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-ink text-sm font-bold text-white">
+                t.
               </span>
-              <button
+              <span className="text-lg font-semibold tracking-[-0.03em] text-ink">
+                tampilin<span className="text-accent">.</span>
+              </span>
+            </Link>
+            <button type="button" onClick={() => setOpen(false)} className="icon-button" aria-label="Tutup menu">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+
+          <nav className="section-shell flex flex-1 flex-col justify-center gap-1 py-12" aria-label="Navigasi mobile">
+            {NAV_LINKS.map((link, index) => (
+              <Link
+                key={link.href}
+                href={link.href}
                 onClick={() => setOpen(false)}
-                className="grid h-11 w-11 place-items-center rounded-xl border border-cream/20"
-                aria-label="Tutup menu"
+                className="flex items-center gap-4 border-b border-line py-5 text-2xl font-semibold tracking-[-0.03em] text-ink"
               >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <nav className="flex flex-1 flex-col justify-center px-6">
-              {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ x: -24, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.06 * i, duration: 0.4 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="group flex items-baseline gap-5 border-b border-cream/10 py-5"
-                  >
-                    <span className="font-mono text-xs text-cream/40">0{i + 1}</span>
-                    <span className="font-serif text-4xl font-black tracking-tight transition-transform group-hover:-translate-x-1">
-                      {link.label}
-                    </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-            <div className="px-6 pb-8">
-              <a
-                href={waLink("Halo tampilin.online, saya mau tanya soal website.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-2xl bg-accent px-6 py-4 font-mono text-sm font-bold uppercase text-cream"
-              >
-                Konsultasi gratis via WhatsApp
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-              <p className="mt-4 flex items-center gap-2 font-mono text-xs text-cream/50">
-                <Instagram className="h-3.5 w-3.5" /> {SITE.instagram}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <span className="font-mono text-xs font-medium text-ink-muted">0{index + 1}</span>
+                {link.label}
+                <ArrowUpRight className="ml-auto h-5 w-5 text-ink-muted" />
+              </Link>
+            ))}
+            <a
+              href={waLink("Halo tampilin.online, saya mau tanya soal website.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="button-primary mt-8 w-full"
+            >
+              Mulai proyek
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <p className="mt-5 flex items-center gap-2 text-sm text-ink-muted">
+              <MessageCircle className="h-4 w-4" /> {SITE.whatsappDisplay}
+            </p>
+          </nav>
+        </div>
+      )}
     </>
   );
 }

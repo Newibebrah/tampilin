@@ -145,7 +145,7 @@ export const BEHIND_SCENES = [
   {
     id: "3",
     step: "Desain final",
-    desc: "Warna, tipografi, animasi halus. Diuji di layar kecil sampai besar.",
+    desc: "Warna, tipografi, dan detail alur. Diuji di layar kecil sampai besar.",
     tone: "bg-accent text-cream",
     rotate: "rotate-[-1deg]",
   },
