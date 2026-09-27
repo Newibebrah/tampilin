@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowUpRight, Check, Globe2, Layers3, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowUpRight, Check, Globe2, Layers3, MessageCircle, Sparkles, Calculator } from "lucide-react";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SITE } from "@/content/site";
-import { KENAPA_TAMPILIN, LAYANAN_MENU, MASALAH_POINTS, PROSES_STEPS } from "@/content/home";
+import { KENAPA_TAMPILIN, MASALAH_POINTS, PROSES_STEPS } from "@/content/home";
+import { PAKET } from "@/lib/data";
 import { waLink } from "@/lib/utils";
 
 const TRUST_POINTS = [
@@ -26,8 +27,9 @@ export default function HomePage() {
               dengan website yang jelas, cepat, dan siap mengubah pengunjung menjadi pelanggan.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href="/katalog" className="button-primary">
-                Lihat paket dan harga
+              <Link href="/kalkulator" className="button-primary">
+                <Calculator className="h-4 w-4" />
+                Hitung biaya website
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
               <a
@@ -50,7 +52,7 @@ export default function HomePage() {
 
           <div className="relative mx-auto w-full max-w-md lg:ml-auto">
             <div className="absolute -inset-8 rounded-full bg-accent/10 blur-3xl" />
-            <div className="relative rounded-2xl border border-line bg-paper p-3 shadow-soft">
+            <div className="relative rounded-2xl border border-line bg-paper p-3 shadow-soft rotate-[-1.5deg]">
               <div className="flex items-center justify-between border-b border-line px-3 pb-3">
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-accent" />
@@ -92,7 +94,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-6 -left-5 hidden items-center gap-3 rounded-xl border border-line bg-paper px-4 py-3 shadow-card sm:flex">
+            <div className="absolute -bottom-6 -left-5 hidden items-center gap-3 rounded-xl border border-line bg-paper px-4 py-3 shadow-card sm:flex rotate-[1deg]">
               <span className="grid h-8 w-8 place-items-center rounded-lg bg-lime text-deep"><Globe2 className="h-4 w-4" /></span>
               <div>
                 <p className="text-xs font-semibold text-ink">Siap tayang</p>
@@ -145,30 +147,57 @@ export default function HomePage() {
               <SectionLabel no="02" label="Layanan" />
               <h2 className="section-title mt-6 max-w-xl">Bangun fondasi online yang tepat untuk tahap bisnis Anda.</h2>
             </div>
-            <Link href="/katalog" className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors duration-150 hover:text-accent">
-              Lihat semua paket
+            <Link href="/kalkulator" className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors duration-150 hover:text-accent">
+              Hitung biaya
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-              {LAYANAN_MENU.map((service) => (
-              <article key={service.no} className="group rounded-2xl border border-line bg-canvas p-7 transition-colors duration-150 hover:border-accent/50">
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {PAKET.map((p) => (
+              <article key={p.id} className="group relative rounded-2xl border border-line bg-canvas p-7 transition-all duration-200 hover:border-accent/50 hover:shadow-soft rotate-[-0.5deg]">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <span className="grid h-10 w-10 place-items-center rounded-xl bg-deep text-white">
-                      <Layers3 className="h-5 w-5" />
+                      {p.id === "landing" && <Globe2 className="h-5 w-5" />}
+                      {p.id === "umkm" && <Layers3 className="h-5 w-5" />}
+                      {p.id === "ecommerce" && <MessageCircle className="h-5 w-5" />}
                     </span>
-                    <span className="tag-mono text-ink-muted">{service.category}</span>
+                    <span className="tag-mono text-ink-muted">
+                      {p.id === "landing" && "Personal"}
+                      {p.id === "umkm" && "UMKM"}
+                      {p.id === "ecommerce" && "E-Commerce"}
+                    </span>
                   </div>
-                  <span className="font-mono text-xs text-ink-muted">{service.no}</span>
+                  <span className="font-mono text-xs text-ink-muted">{p.id === "landing" ? "01" : p.id === "umkm" ? "02" : "03"}</span>
                 </div>
-                <h3 className="mt-8 text-2xl font-semibold tracking-[-0.035em] text-ink">{service.name}</h3>
-                <p className="mt-3 max-w-md text-sm leading-6 text-ink-muted">{service.desc}</p>
+                <h3 className="mt-8 text-2xl font-semibold tracking-[-0.035em] text-ink">{p.nama}</h3>
+                <p className="mt-3 max-w-md text-sm leading-6 text-ink-muted">{p.deskripsi}</p>
                 <div className="mt-8 flex items-center justify-between border-t border-line pt-5">
-                  <span className="text-sm font-semibold text-ink">Mulai {service.price}</span>
+                  <div>
+                    <span className="text-sm font-semibold text-ink">Rp{p.hargaDiskon.toLocaleString("id-ID")}</span>
+                    <span className="ml-2 line-through text-xs text-ink-muted">Rp{p.hargaNormal.toLocaleString("id-ID")}</span>
+                  </div>
                   <ArrowUpRight className="h-4 w-4 text-ink-muted transition-colors duration-150 group-hover:text-accent" />
                 </div>
+                <ul className="mt-6 space-y-2">
+                  {p.fitur.slice(0, 4).map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-ink-soft">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                      {f}
+                    </li>
+                  ))}
+                  {p.fitur.length > 4 && (
+                    <li className="text-sm text-accent font-medium">+{p.fitur.length - 4} fitur lain</li>
+                  )}
+                </ul>
+                <Link
+                  href="/kalkulator"
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-deep"
+                >
+                  Pilih paket ini
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
               </article>
             ))}
           </div>
@@ -233,15 +262,21 @@ export default function HomePage() {
               Mari obrolkan langkah pertama untuk brand Anda.
             </h2>
           </div>
-          <a
-            href={waLink("Halo tampilin.online, saya punya ide website yang ingin dibahas.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button-primary shrink-0"
-          >
-            Mulai konsultasi
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={waLink("Halo tampilin.online, saya punya ide website yang ingin dibahas.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button-primary shrink-0"
+            >
+              Mulai konsultasi
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <Link href="/kalkulator" className="button-secondary shrink-0">
+              <Calculator className="h-4 w-4" />
+              Hitung biaya dulu
+            </Link>
+          </div>
         </div>
       </section>
     </>
