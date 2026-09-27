@@ -71,13 +71,13 @@ export const HOSTING = [
 ];
 
 export const ADDON = [
-  { id: "extra-page", nama: "Extra halaman", harga: 250_000 },
-  { id: "copywriting", nama: "Copywriting", harga: 300_000 },
-  { id: "gbp", nama: "Setup Google Business Profile", harga: 300_000 },
-  { id: "seo", nama: "SEO Dasar", harga: 500_000 },
-  { id: "payment", nama: "Integrasi Payment Gateway", harga: 500_000 },
-  { id: "ongkir", nama: "Integrasi Ongkir Otomatis", harga: 500_000 },
-  { id: "foto", nama: "Foto Produk", harga: 500_000 },
+  { id: "extra-page", nama: "Extra halaman", harga: 250_000, paket: ["umkm", "ecommerce"] },
+  { id: "copywriting", nama: "Copywriting", harga: 300_000, paket: ["landing", "umkm", "ecommerce"] },
+  { id: "gbp", nama: "Setup Google Business Profile", harga: 300_000, paket: ["landing", "umkm", "ecommerce"] },
+  { id: "seo", nama: "SEO Dasar", harga: 500_000, paket: ["landing", "umkm", "ecommerce"] },
+  { id: "payment", nama: "Integrasi Payment Gateway", harga: 500_000, paket: ["ecommerce"] },
+  { id: "ongkir", nama: "Integrasi Ongkir Otomatis", harga: 500_000, paket: ["ecommerce"] },
+  { id: "foto", nama: "Foto Produk", harga: 500_000, paket: ["umkm", "ecommerce"] },
 ];
 
 export const DISKON_REFF = 50_000;

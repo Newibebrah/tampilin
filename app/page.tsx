@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Check, Globe2, Layers3, MessageCircle, Sparkles, Calculator } from "lucide-react";
+import { ArrowUpRight, Check, Globe2, Layers3, MessageCircle, Sparkles } from "lucide-react";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SITE } from "@/content/site";
 import { KENAPA_TAMPILIN, MASALAH_POINTS, PROSES_STEPS } from "@/content/home";
@@ -27,9 +27,8 @@ export default function HomePage() {
               dengan website yang jelas, cepat, dan siap mengubah pengunjung menjadi pelanggan.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href="/kalkulator" className="button-primary">
-                <Calculator className="h-4 w-4" />
-                Hitung biaya website
+              <Link href="/katalog" className="button-primary">
+                Lihat paket & harga
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
               <a
@@ -147,8 +146,8 @@ export default function HomePage() {
               <SectionLabel no="02" label="Layanan" />
               <h2 className="section-title mt-6 max-w-xl">Bangun fondasi online yang tepat untuk tahap bisnis Anda.</h2>
             </div>
-            <Link href="/kalkulator" className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors duration-150 hover:text-accent">
-              Hitung biaya
+            <Link href="/katalog" className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors duration-150 hover:text-accent">
+              Lihat semua paket
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
@@ -272,9 +271,9 @@ export default function HomePage() {
               Mulai konsultasi
               <ArrowUpRight className="h-4 w-4" />
             </a>
-            <Link href="/kalkulator" className="button-secondary shrink-0">
-              <Calculator className="h-4 w-4" />
-              Hitung biaya dulu
+            <Link href="/katalog" className="button-secondary shrink-0">
+              Lihat katalog
+              <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
