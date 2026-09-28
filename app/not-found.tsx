@@ -72,7 +72,7 @@ export default function NotFound() {
                 </span>
                 <ArrowUpRight
                   aria-hidden="true"
-                  className="h-5 w-5 flex-shrink-0 text-ink-subtle transition-colors duration-micro group-hover:text-flame"
+                  className="h-5 w-5 flex-shrink-0 text-ink-subtle transition-colors duration-micro group-hover:text-flame-hover"
                 />
               </Link>
             </li>
@@ -102,7 +102,7 @@ export default function NotFound() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-body-sm text-ink-muted underline-offset-4 transition-colors duration-micro hover:text-flame hover:underline"
+                className="text-body-sm text-ink-muted underline-offset-4 transition-colors duration-micro hover:text-flame-hover hover:underline"
               >
                 {link.label}
               </Link>

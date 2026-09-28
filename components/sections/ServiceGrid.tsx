@@ -56,7 +56,7 @@ export function ServiceCard({
       className={cn(
         "relative flex h-full flex-col rounded-card-lg border p-8 transition-all duration-standard",
         featured
-          ? "border-flame bg-flame text-paper shadow-glow-flame lg:-my-3 lg:py-11"
+          ? "border-ink bg-ink text-paper shadow-glow-flame lg:-my-3 lg:py-11"
           : "border-border bg-paper-subtle hover:-translate-y-1 hover:border-flame hover:bg-paper hover:shadow-layer-2"
       )}
       initial={{ opacity: 0, y: 28 }}
@@ -129,7 +129,7 @@ export function ServiceCard({
             <span
               className={cn(
                 "mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full",
-                featured ? "bg-lime/25 text-lime" : "bg-flame/10 text-flame"
+                featured ? "bg-lime text-forest" : "bg-flame/10 text-flame-hover"
               )}
             >
               <Check className="h-3 w-3" strokeWidth={3} />
@@ -138,7 +138,7 @@ export function ServiceCard({
           </li>
         ))}
         {service.features.length > 4 && (
-          <li className={cn("body-sm font-semibold", featured ? "text-lime" : "text-flame")}>
+          <li className={cn("body-sm font-semibold", featured ? "text-lime" : "text-flame-hover")}>
             +{service.features.length - 4} fitur lain
           </li>
         )}

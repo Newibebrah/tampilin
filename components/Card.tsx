@@ -8,7 +8,7 @@ const TONE: Record<Tone, string> = {
   subtle: "bg-paper-subtle border-border",
   deep: "bg-paper-deep border-border",
   ink: "bg-ink text-paper border-ink",
-  flame: "bg-flame text-paper border-flame",
+  flame: "bg-flame text-ink border-flame",
   forest: "bg-forest text-paper border-forest",
 };
 

@@ -48,7 +48,7 @@ export default function LayananPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
-              Pilih paket yang <span className="text-flame">paling pas</span> untuk bisnis Anda.
+              Pilih paket yang <span className="text-flame-hover">paling pas</span> untuk bisnis Anda.
             </motion.h1>
 
             <motion.p
@@ -62,11 +62,11 @@ export default function LayananPage() {
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               <span className="flex items-center gap-2 body-sm text-ink-muted">
-                <Globe className="h-4 w-4 text-flame" strokeWidth={2} />
+                <Globe className="h-4 w-4 text-flame-hover" strokeWidth={2} />
                 Harga dalam Rupiah · estimasi ditulis terbuka
               </span>
               <span className="flex items-center gap-2 body-sm text-ink-muted">
-                <Clock className="h-4 w-4 text-flame" strokeWidth={2} />
+                <Clock className="h-4 w-4 text-flame-hover" strokeWidth={2} />
                 Timeline ditulis jelas di setiap paket
               </span>
             </div>
@@ -158,7 +158,7 @@ export default function LayananPage() {
                 <Calculator className="h-5 w-5" strokeWidth={2} />
               </span>
               Mulai Simulasi Harga
-              <ArrowUpRight className="h-5 w-5 text-flame" />
+              <ArrowUpRight className="h-5 w-5 text-flame-hover" />
             </Link>
             <p className="mt-4 body-sm text-paper/50">
               Tidak ada komitmen · Bisa dibatalkan kapan saja · Estimasi akurat

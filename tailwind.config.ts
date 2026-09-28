@@ -18,7 +18,7 @@ const config: Config = {
         // Ink
         ink: "#111111",
         "ink-muted": "#4A4A4A",
-        "ink-subtle": "#8A8A8A",
+        "ink-subtle": "#6B6B6B",
         // Accent - Flame
         flame: "#FF4D2E",
         "flame-hover": "#E63E1F",

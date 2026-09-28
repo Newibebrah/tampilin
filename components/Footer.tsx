@@ -24,7 +24,7 @@ export function Footer() {
               t.
             </span>
             <span className="text-heading-lg font-bold tracking-[-0.03em] text-ink">
-              tampilin<span className="text-flame">.</span>
+              tampilin<span className="text-flame-hover">.</span>
             </span>
           </Link>
           <p className="mt-5 max-w-sm body text-ink-muted">{SITE.tagline}</p>
@@ -49,7 +49,7 @@ export function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="-ml-3 flex items-center gap-2 rounded-soft px-3 py-2 body-sm font-medium text-ink-muted transition-colors duration-micro hover:bg-paper hover:text-flame"
+                  className="-ml-3 flex items-center gap-2 rounded-soft px-3 py-2 body-sm font-medium text-ink-muted transition-colors duration-micro hover:bg-paper hover:text-flame-hover"
                 >
                   <span className="h-1 w-1 rounded-full bg-flame/40 transition-colors duration-micro group-hover:bg-flame" />
                   {link.label}
@@ -70,7 +70,7 @@ export function Footer() {
                 <a
                   href={href}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="group flex items-center gap-3 transition-colors duration-micro hover:text-flame"
+                  className="group flex items-center gap-3 transition-colors duration-micro hover:text-flame-hover"
                 >
                   <span className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-icon bg-paper-subtle text-ink-muted transition-colors duration-micro group-hover:bg-flame group-hover:text-paper">
                     <Icon className="h-4 w-4" />

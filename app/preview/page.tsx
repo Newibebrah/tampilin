@@ -23,7 +23,7 @@ export default function PreviewPage() {
             Preview karya
           </Badge>
           <h1 className="display-lg mt-7 max-w-4xl text-balance">
-            Lihat hasil sebelum Anda <span className="text-flame">memutuskan.</span>
+            Lihat hasil sebelum Anda <span className="text-flame-hover">memutuskan.</span>
           </h1>
           <p className="lede mt-7 max-w-2xl">
             Beberapa website yang kami bangun untuk bisnis dengan konteks, industri, dan
@@ -99,11 +99,11 @@ export default function PreviewPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 rounded-card bg-paper px-8 py-5 text-body-lg font-bold text-forest shadow-layer-3 transition-all duration-standard hover:-translate-y-1 hover:bg-lime"
             >
-              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-icon bg-flame/10 text-flame">
+              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-icon bg-flame/10 text-flame-hover">
                 <Sparkles className="h-5 w-5" strokeWidth={2} />
               </span>
               Diskusikan kebutuhan
-              <ArrowUpRight className="h-5 w-5 text-flame" />
+              <ArrowUpRight className="h-5 w-5 text-flame-hover" />
             </Link>
           </div>
         </div>

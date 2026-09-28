@@ -4,7 +4,7 @@ type Tone = "flame" | "lime" | "forest" | "ink" | "outline" | "inverse";
 type Size = "sm" | "md" | "lg";
 
 const TONE: Record<Tone, string> = {
-  flame: "bg-flame/10 text-flame",
+  flame: "bg-flame/10 text-flame-hover",
   lime: "bg-lime/25 text-forest",
   forest: "bg-forest-subtle text-forest",
   ink: "bg-ink text-paper",

@@ -103,7 +103,7 @@
   }
 
   .eyebrow {
-    @apply text-mono-xs text-flame font-semibold uppercase tracking-[0.18em];
+    @apply text-mono-xs text-flame-hover font-semibold uppercase tracking-[0.18em];
   }
 
   .display-xl {

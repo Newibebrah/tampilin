@@ -235,7 +235,7 @@ export default function HargaCalculator({
           </span>
         </div>
         {reffValid && totals.diskonReff > 0 && (
-          <div className="flex justify-between text-body-sm text-flame">
+          <div className="flex justify-between text-body-sm text-flame-hover">
             <span className="flex items-center gap-1">
               <Gift className="h-3.5 w-3.5" /> Diskon Referral ({reffNama})
             </span>
@@ -249,7 +249,7 @@ export default function HargaCalculator({
           <NumberFlow
             value={totals.total}
             prefix="Rp"
-            className="text-2xl font-semibold text-flame"
+            className="text-2xl font-semibold text-flame-hover"
           />
         </div>
       </div>
@@ -287,7 +287,7 @@ export default function HargaCalculator({
             </Badge>
           </div>
           <h1 className="display-lg mt-6 text-balance">
-            Simulasi Harga <span className="text-flame">Transparan</span>
+            Simulasi Harga <span className="text-flame-hover">Transparan</span>
           </h1>
           <p className="lede mt-5 text-ink-muted">
             Pilih paket, domain, dan hosting — lihat totalnya jelas, tanpa kejutan.
@@ -314,7 +314,7 @@ export default function HargaCalculator({
                   aria-current={i === stepIndex ? "step" : undefined}
                   className={cn(
                     "flex flex-shrink-0 items-center gap-1.5 rounded-pill px-3.5 py-1.5 text-mono-xs font-medium transition-all duration-micro",
-                    i < stepIndex && "bg-flame text-paper",
+                    i < stepIndex && "bg-flame text-ink",
                     i === stepIndex && "bg-ink text-paper",
                     i > stepIndex && "bg-paper-subtle text-ink-muted hover:bg-border",
                     (s === "summary" && !paket) && "cursor-not-allowed opacity-50"
@@ -401,7 +401,7 @@ export default function HargaCalculator({
                     >
                       <div className="rounded-card-lg border border-border bg-paper p-6 shadow-layer-1 sm:p-8">
                         <div className="mb-6 flex items-center gap-3 border-b border-border pb-5">
-                          <span className="grid h-11 w-11 place-items-center rounded-soft bg-flame/10 text-flame">
+                          <span className="grid h-11 w-11 place-items-center rounded-soft bg-flame/10 text-flame-hover">
                             <Check className="h-5 w-5" />
                           </span>
                           <div>
@@ -473,7 +473,7 @@ export default function HargaCalculator({
               <NumberFlow
                 value={totals.total}
                 prefix="Rp"
-                className="text-heading-sm font-semibold text-flame"
+                className="text-heading-sm font-semibold text-flame-hover"
               />
               <ChevronRight className="h-4 w-4 text-ink-muted" />
             </button>
@@ -616,7 +616,7 @@ function DomainStep({
               <span
                 className={cn(
                   "font-mono text-body-sm font-semibold",
-                  isSelected ? "text-flame" : "text-ink"
+                  isSelected ? "text-ink" : "text-ink"
                 )}
               >
                 {d.nama}
@@ -624,7 +624,7 @@ function DomainStep({
               <span
                 className={cn(
                   "text-body-sm font-semibold",
-                  isSelected ? "text-flame" : "text-ink"
+                  isSelected ? "text-ink" : "text-ink"
                 )}
               >
                 {d.harga === 0 ? "Gratis" : formatIdr(d.harga)}
@@ -675,10 +675,10 @@ function HostingStep({
             >
               <div className="flex items-start gap-3">
                 <Database
-                  className={cn("mt-0.5 h-4 w-4", isSelected ? "text-flame" : "text-ink-muted")}
+                  className={cn("mt-0.5 h-4 w-4", isSelected ? "text-ink" : "text-ink-muted")}
                 />
                 <div>
-                  <p className={cn("text-body-sm font-medium", isSelected ? "text-flame" : "text-ink")}>
+                  <p className={cn("text-body-sm font-medium", isSelected ? "text-ink" : "text-ink")}>
                     {h.nama}
                   </p>
                   {h.id !== "none" && (
@@ -689,7 +689,7 @@ function HostingStep({
               <span
                 className={cn(
                   "shrink-0 text-body-sm font-semibold",
-                  isSelected ? "text-flame" : "text-ink"
+                  isSelected ? "text-ink" : "text-ink"
                 )}
               >
                 {h.harga === 0 ? "Gratis" : `${formatIdr(h.harga)}/thn`}
@@ -743,7 +743,7 @@ function AddonStep({
                       : [...value, a.id as AddonId]
                   )
                 }
-                className="mt-0.5 h-4 w-4 shrink-0 rounded border-border-strong text-flame focus:ring-flame"
+                className="mt-0.5 h-4 w-4 shrink-0 rounded border-border-strong text-flame-hover focus:ring-flame-hover"
               />
               <span className="min-w-0 flex-1">
                 <span className="block text-body-sm font-medium text-ink">{a.nama}</span>
@@ -797,7 +797,7 @@ function ReffStep({
         <p
           className={cn(
             "mt-3 flex items-center gap-2 text-body-sm",
-            valid ? "text-forest" : "text-flame"
+            valid ? "text-forest" : "text-flame-hover"
           )}
         >
           {valid ? (

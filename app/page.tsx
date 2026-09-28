@@ -63,7 +63,7 @@ export default function HomePage() {
               <KineticText
                 text="Website yang bikin bisnis Anda sulit dilewati."
                 highlightWords={["bisnis"]}
-                highlightClassName="text-flame"
+                highlightClassName="text-flame-hover"
                 stagger={0.06}
               />
             </h1>
@@ -106,7 +106,7 @@ export default function HomePage() {
             >
               <div className="flex items-center justify-between gap-4 border-b border-border pb-5">
                 <div>
-                  <p className="mono-xs uppercase tracking-[0.14em] text-flame">Ringkasan brand</p>
+                  <p className="mono-xs uppercase tracking-[0.14em] text-flame-hover">Ringkasan brand</p>
                   <p className="heading-md mt-2 text-ink">Bisnis lebih mudah ditemukan.</p>
                 </div>
                 <IconContainer tone="flame" size="lg">
@@ -119,9 +119,9 @@ export default function HomePage() {
                   <p className="font-display text-4xl font-extrabold leading-none tracking-[-0.04em]">24+</p>
                   <p className="mt-2 text-caption text-paper/60">proyek selesai</p>
                 </div>
-                <div className="rounded-card bg-flame p-6 text-paper">
+                <div className="rounded-card bg-flame p-6 text-ink">
                   <p className="font-display text-4xl font-extrabold leading-none tracking-[-0.04em]">4,9</p>
-                  <p className="mt-2 text-caption text-paper/80">skor kepuasan</p>
+                  <p className="mt-2 text-caption text-ink/70">skor kepuasan</p>
                 </div>
               </div>
 
@@ -134,11 +134,11 @@ export default function HomePage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
                   >
-                    <span className="grid h-7 w-7 flex-shrink-0 place-items-center rounded-full bg-flame/10 text-mono-xs font-bold text-flame">
+                    <span className="grid h-7 w-7 flex-shrink-0 place-items-center rounded-full bg-flame/10 text-mono-xs font-bold text-flame-hover">
                       0{index + 1}
                     </span>
                     <span className="body-sm font-medium text-ink">{item}</span>
-                    <Check className="ml-auto h-4 w-4 flex-shrink-0 text-flame" strokeWidth={3} />
+                    <Check className="ml-auto h-4 w-4 flex-shrink-0 text-flame-hover" strokeWidth={3} />
                   </motion.li>
                 ))}
               </ul>
@@ -188,7 +188,7 @@ export default function HomePage() {
             <KineticText
               text="Produknya sudah bagus. Sekarang waktunya tampil lebih jelas."
               highlightWords={["tampil lebih jelas"]}
-              highlightClassName="text-flame"
+              highlightClassName="text-flame-hover"
               stagger={0.05}
             />
           </h2>
@@ -219,7 +219,7 @@ export default function HomePage() {
                   </IconContainer>
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-3">
-                      <span className="mono-xs text-flame">{point.num}</span>
+                      <span className="mono-xs text-flame-hover">{point.num}</span>
                       <h3 className={`heading-md text-ink ${wide ? "md:heading-lg" : ""}`}>
                         {point.title}
                       </h3>
@@ -305,11 +305,11 @@ export default function HomePage() {
                 href="/harga"
                 className="inline-flex items-center gap-3 rounded-card bg-paper px-8 py-5 text-body-lg font-bold text-forest shadow-layer-3 transition-all duration-standard hover:-translate-y-1 hover:bg-lime"
               >
-                <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-icon bg-flame/10 text-flame">
+                <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-icon bg-flame/10 text-flame-hover">
                   <Sparkles className="h-5 w-5" strokeWidth={2} />
                 </span>
                 Mulai Simulasi Harga
-                <ArrowUpRight className="h-5 w-5 text-flame" />
+                <ArrowUpRight className="h-5 w-5 text-flame-hover" />
               </Link>
               <p className="mt-4 body-sm text-paper/50">
                 Tidak ada komitmen · Bisa dibatalkan kapan saja · Estimasi akurat
@@ -417,7 +417,7 @@ export default function HomePage() {
             </a>
             <Link
               href="/layanan"
-              className="button-secondary shrink-0 border-paper/50 bg-transparent text-paper hover:border-paper hover:bg-paper hover:text-flame"
+              className="button-secondary shrink-0 border-paper/50 bg-transparent text-paper hover:border-paper hover:bg-paper hover:text-flame-hover"
             >
               Lihat layanan
               <ArrowUpRight className="h-5 w-5" />

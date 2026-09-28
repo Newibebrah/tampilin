@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 type Tone = "flame" | "lime" | "forest" | "ink";
 
 const TONE: Record<Tone, string> = {
-  flame: "bg-flame-subtle text-flame border-flame/20",
+  flame: "bg-flame-subtle text-flame-hover border-flame/20",
   lime: "bg-lime/20 text-forest border-lime/40",
   forest: "bg-forest-subtle text-forest border-forest/20",
   ink: "bg-paper-subtle text-ink-muted border-border",

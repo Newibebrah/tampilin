@@ -67,7 +67,7 @@ export function HorizontalScroll({
           type="button"
           onClick={() => nudge(-1)}
           disabled={!edges.left}
-          className="grid h-11 w-11 place-items-center rounded-icon border border-border bg-paper text-ink transition-all duration-micro hover:border-flame hover:text-flame disabled:pointer-events-none disabled:opacity-30"
+          className="grid h-11 w-11 place-items-center rounded-icon border border-border bg-paper text-ink transition-all duration-micro hover:border-flame hover:text-flame-hover disabled:pointer-events-none disabled:opacity-30"
           aria-label="Geser ke kiri"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -76,7 +76,7 @@ export function HorizontalScroll({
           type="button"
           onClick={() => nudge(1)}
           disabled={!edges.right}
-          className="grid h-11 w-11 place-items-center rounded-icon border border-border bg-paper text-ink transition-all duration-micro hover:border-flame hover:text-flame disabled:pointer-events-none disabled:opacity-30"
+          className="grid h-11 w-11 place-items-center rounded-icon border border-border bg-paper text-ink transition-all duration-micro hover:border-flame hover:text-flame-hover disabled:pointer-events-none disabled:opacity-30"
           aria-label="Geser ke kanan"
         >
           <ArrowRight className="h-4 w-4" />
@@ -109,7 +109,7 @@ export function TimelineStep({ step, index }: { step: TimelineStepData; index: n
       transition={{ duration: 0.45, delay: index * 0.08 }}
     >
       <div className="flex items-start justify-between">
-        <span className="grid h-14 w-14 place-items-center rounded-icon bg-flame/10 text-flame">
+        <span className="grid h-14 w-14 place-items-center rounded-icon bg-flame/10 text-flame-hover">
           <Icon className="h-6 w-6" strokeWidth={2} />
         </span>
         <span className="font-display text-3xl font-extrabold leading-none tracking-[-0.04em] text-ink/10">
@@ -117,7 +117,7 @@ export function TimelineStep({ step, index }: { step: TimelineStepData; index: n
         </span>
       </div>
 
-      <p className="mono-xs mt-6 uppercase tracking-[0.14em] text-flame">{step.duration}</p>
+      <p className="mono-xs mt-6 uppercase tracking-[0.14em] text-flame-hover">{step.duration}</p>
       <h3 className="heading-md mt-2 text-ink">{step.title}</h3>
       <p className="body-sm mt-3 text-ink-muted">{step.body}</p>
     </motion.article>

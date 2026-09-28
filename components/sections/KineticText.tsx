@@ -16,7 +16,7 @@ export function KineticText({
   text,
   className,
   highlightWords = [],
-  highlightClassName = "text-flame",
+  highlightClassName = "text-flame-hover",
   delay = 0,
   stagger = 0.08,
 }: KineticTextProps) {

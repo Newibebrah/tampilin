@@ -78,7 +78,7 @@ export function Navbar() {
               t.
             </span>
             <span className="text-heading-sm font-bold tracking-[-0.03em] text-ink">
-              tampilin<span className="text-flame">.</span>
+              tampilin<span className="text-flame-hover">.</span>
             </span>
           </Link>
 
@@ -141,8 +141,8 @@ export function Navbar() {
                       key={link.href}
                       href={link.href}
                       className={cn(
-                        "flex items-center justify-between gap-4 py-4 text-heading-sm font-semibold text-ink transition-colors duration-micro hover:text-flame",
-                        pathname === link.href && "text-flame"
+                        "flex items-center justify-between gap-4 py-4 text-heading-sm font-semibold text-ink transition-colors duration-micro hover:text-flame-hover",
+                        pathname === link.href && "text-flame-hover"
                       )}
                     >
                       <span className="mono-xs text-ink-muted">0{index + 1}</span>

@@ -40,7 +40,7 @@ export default function TentangPage() {
               Tentang kami
             </Badge>
             <h1 className="display-lg mt-7 max-w-3xl text-balance">
-              Website yang dibuat dengan <span className="text-flame">pemahaman</span> dan niat.
+              Website yang dibuat dengan <span className="text-flame-hover">pemahaman</span> dan niat.
             </h1>
           </div>
           <div className="lg:col-span-5">
@@ -100,7 +100,7 @@ export default function TentangPage() {
                 className="rounded-card-lg border border-border bg-paper p-7 transition-all duration-standard hover:-translate-y-1 hover:border-flame hover:shadow-layer-2"
               >
                 <div className="flex items-center justify-between">
-                  <span className="mono-xs text-flame">{value.no}</span>
+                  <span className="mono-xs text-flame-hover">{value.no}</span>
                   <span className="h-2 w-2 rounded-full bg-lime" />
                 </div>
                 <h3 className="heading-md mt-7 text-ink">{value.title}</h3>
