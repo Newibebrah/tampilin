@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
+import { MotionConfig } from "framer-motion";
 import { LenisProvider } from "@/components/LenisProvider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -12,8 +13,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <LenisProvider>
-      {children}
+    <MotionConfig reducedMotion="user">
+      <LenisProvider>
+        {children}
       {mounted && (
         <Toaster
           position="bottom-right"
@@ -24,6 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           }}
         />
       )}
-    </LenisProvider>
+      </LenisProvider>
+    </MotionConfig>
   );
 }
