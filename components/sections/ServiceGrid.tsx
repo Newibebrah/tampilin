@@ -34,7 +34,19 @@ const ICONS = { rocket: Rocket, building: Building2, store: ShoppingBag } as con
 
 const rupiah = (value: number) => `Rp${value.toLocaleString("id-ID")}`;
 
-function ServiceCard({ service, onOrder }: { service: Service; onOrder: () => void }) {
+export function ServiceCard({
+  service,
+  onOrder,
+  footnote,
+  orderLabel = "Pesan Paket Ini",
+  orderIcon = <MessageCircle className="h-4 w-4" />,
+}: {
+  service: Service;
+  onOrder: () => void;
+  footnote?: React.ReactNode;
+  orderLabel?: string;
+  orderIcon?: React.ReactNode;
+}) {
   const Icon = ICONS[service.icon];
   const savings = service.originalPrice - service.price;
   const featured = Boolean(service.isPopular);
@@ -85,12 +97,7 @@ function ServiceCard({ service, onOrder }: { service: Service; onOrder: () => vo
           >
             {rupiah(service.price)}
           </span>
-          <span
-            className={cn(
-              "body-sm line-through",
-              featured ? "text-paper/60" : "text-ink-subtle"
-            )}
-          >
+          <span className={cn("body-sm line-through", featured ? "text-paper/60" : "text-ink-subtle")}>
             {rupiah(service.originalPrice)}
           </span>
         </div>
@@ -105,6 +112,17 @@ function ServiceCard({ service, onOrder }: { service: Service; onOrder: () => vo
         </span>
       </div>
 
+      {footnote && (
+        <p
+          className={cn(
+            "mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-mono-xs",
+            featured ? "text-paper/70" : "text-ink-muted"
+          )}
+        >
+          {footnote}
+        </p>
+      )}
+
       <ul className="mt-6 flex-1 space-y-2.5">
         {service.features.slice(0, 4).map((feature) => (
           <li key={feature} className="flex items-start gap-2.5">
@@ -116,9 +134,7 @@ function ServiceCard({ service, onOrder }: { service: Service; onOrder: () => vo
             >
               <Check className="h-3 w-3" strokeWidth={3} />
             </span>
-            <span className={cn("body-sm", featured ? "text-paper/85" : "text-ink-muted")}>
-              {feature}
-            </span>
+            <span className={cn("body-sm", featured ? "text-paper/85" : "text-ink-muted")}>{feature}</span>
           </li>
         ))}
         {service.features.length > 4 && (
@@ -131,11 +147,14 @@ function ServiceCard({ service, onOrder }: { service: Service; onOrder: () => vo
       <Button
         size="lg"
         variant={featured ? "secondary" : "primary"}
-        className={cn("mt-8 w-full", featured && "border-paper/40 bg-transparent text-paper hover:bg-paper hover:text-forest")}
+        className={cn(
+          "mt-8 w-full",
+          featured && "border-paper/40 bg-transparent text-paper hover:bg-paper hover:text-forest"
+        )}
         onClick={onOrder}
       >
-        <MessageCircle className="h-4 w-4" />
-        Pesan Paket Ini
+        {orderIcon}
+        {orderLabel}
         <ArrowUpRight className="h-4 w-4" />
       </Button>
     </motion.article>
@@ -145,14 +164,27 @@ function ServiceCard({ service, onOrder }: { service: Service; onOrder: () => vo
 export function ServiceGrid({
   services,
   onOrder,
+  footnote,
+  orderLabel,
+  orderIcon,
 }: {
   services: Service[];
   onOrder: (id: string) => void;
+  footnote?: (service: Service) => React.ReactNode;
+  orderLabel?: string;
+  orderIcon?: React.ReactNode;
 }) {
   return (
     <div className="grid items-stretch gap-6 lg:grid-cols-3">
       {services.map((service) => (
-        <ServiceCard key={service.id} service={service} onOrder={() => onOrder(service.id)} />
+        <ServiceCard
+          key={service.id}
+          service={service}
+          footnote={footnote?.(service)}
+          orderLabel={orderLabel}
+          orderIcon={orderIcon}
+          onOrder={() => onOrder(service.id)}
+        />
       ))}
     </div>
   );
