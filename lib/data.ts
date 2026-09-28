@@ -70,6 +70,13 @@ export const HOSTING = [
   { id: "backend", nama: "Hosting Backend (VPS)", harga: 600_000, paket: ["ecommerce"] },
 ];
 
+export const CMS_ADDON = {
+  id: "cms",
+  nama: "CMS Custom (Kelola Artikel & Konten Sendiri)",
+  harga: 500_000,
+  paket: ["landing", "umkm", "ecommerce"],
+};
+
 export const ADDON = [
   { id: "extra-page", nama: "Extra halaman", harga: 250_000, paket: ["umkm", "ecommerce"] },
   { id: "copywriting", nama: "Copywriting", harga: 300_000, paket: ["landing", "umkm", "ecommerce"] },
@@ -78,7 +85,12 @@ export const ADDON = [
   { id: "payment", nama: "Integrasi Payment Gateway", harga: 500_000, paket: ["ecommerce"] },
   { id: "ongkir", nama: "Integrasi Ongkir Otomatis", harga: 500_000, paket: ["ecommerce"] },
   { id: "foto", nama: "Foto Produk", harga: 500_000, paket: ["umkm", "ecommerce"] },
+  { id: "cms", nama: "CMS Custom (Kelola Artikel & Konten Sendiri)", harga: 500_000, paket: ["landing", "umkm", "ecommerce"] },
 ];
+
+export function getCmsAddon() {
+  return ADDON.find((a) => a.id === "cms");
+}
 
 export const DISKON_REFF = 50_000;
 
@@ -91,7 +103,7 @@ export const REFF_CODES: Record<string, { nama: string; aktif: boolean }> = {
 export type PaketId = "landing" | "umkm" | "ecommerce";
 export type DomainId = "none" | "myid" | "online" | "com" | "id" | "coid";
 export type HostingId = "none" | "free" | "shared" | "backend";
-export type AddonId = "extra-page" | "copywriting" | "gbp" | "seo" | "payment" | "ongkir" | "foto";
+export type AddonId = "extra-page" | "copywriting" | "gbp" | "seo" | "payment" | "ongkir" | "foto" | "cms";
 
 export interface CalculatorState {
   paket: PaketId | null;

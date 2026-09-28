@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Check, Globe2, Layers3, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowUpRight, Calculator, Check, Globe2, Layers3, MessageCircle, Sparkles } from "lucide-react";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SITE } from "@/content/site";
 import { KENAPA_TAMPILIN, MASALAH_POINTS, PROSES_STEPS } from "@/content/home";
@@ -190,15 +190,31 @@ export default function HomePage() {
                     <li className="text-sm text-accent font-medium">+{p.fitur.length - 4} fitur lain</li>
                   )}
                 </ul>
-                <Link
-                  href="/kalkulator"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-deep"
+                <a
+                  href={waLink(`Halo ${SITE.name}, saya mau pesan paket *${p.nama}* (Rp${p.hargaDiskon.toLocaleString("id-ID")}).`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 button-primary w-full justify-center"
                 >
-                  Pilih paket ini
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                  <MessageCircle className="h-4 w-4" />
+                  Pesan
+                </a>
               </article>
             ))}
+          </div>
+
+          <div className="mt-16 rounded-2xl border border-line bg-cream-dim p-8 text-center">
+            <p className="eyebrow text-accent">Masih bingung atau ragu dengan harga yang akan dibayarkan?</p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-ink max-w-2xl mx-auto">
+              Coba simulasi harga. Pilih paket, domain, dan hosting — lihat totalnya jelas, tanpa kejutan.
+            </h3>
+            <a
+              href="/kalkulator"
+              className="mt-8 inline-flex items-center gap-2 button-primary"
+            >
+              <Calculator className="h-4 w-4" />
+              Simulasi Harga
+            </a>
           </div>
         </div>
       </section>

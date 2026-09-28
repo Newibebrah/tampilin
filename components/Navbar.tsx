@@ -67,6 +67,11 @@ export function Navbar() {
                   "rounded-md px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors duration-150 hover:bg-cream-dim hover:text-ink",
                   pathname === link.href && "bg-cream-dim text-ink",
                 )}
+                onClick={(e) => {
+                  if (link.href === "/") {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
               >
                 {link.label}
               </Link>

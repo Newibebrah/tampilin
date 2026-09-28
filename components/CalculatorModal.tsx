@@ -2,12 +2,9 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Check, AlertCircle, Tag, MessageCircle, ArrowUpRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Check, AlertCircle, Tag, MessageCircle, ArrowUpRight, Database } from "lucide-react";
 import { cn, formatIdr, waLink } from "@/lib/utils";
-import { PAKET, DOMAIN, HOSTING, ADDON, DISKON_REFF, REFF_CODES, type PaketId, type DomainId, type HostingId, type AddonId } from "@/lib/data";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { PAKET, DOMAIN, HOSTING, ADDON, getCmsAddon, DISKON_REFF, REFF_CODES, type PaketId, type DomainId, type HostingId, type AddonId } from "@/lib/data";
 import { SITE } from "@/content/site";
 
 type Step = "paket" | "domain" | "hosting" | "addon" | "reff" | "summary";
@@ -15,13 +12,19 @@ type Step = "paket" | "domain" | "hosting" | "addon" | "reff" | "summary";
 const STEPS: { id: Step; label: string; icon: React.ReactNode }[] = [
   { id: "paket", label: "Paket", icon: <div className="w-5 h-5" /> },
   { id: "domain", label: "Domain", icon: <div className="w-5 h-5" /> },
-  { id: "hosting", label: "Hosting", icon: <div className="w-5 h-5" /> },
+  { id: "hosting", label: "Hosting", icon: <Database className="w-5 h-5" /> },
   { id: "addon", label: "Tambahan", icon: <div className="w-5 h-5" /> },
   { id: "reff", label: "Referral", icon: <Tag className="w-5 h-5" /> },
   { id: "summary", label: "Ringkasan", icon: <MessageCircle className="w-5 h-5" /> },
 ];
 
-const STEP_ORDER: Step[] = ["paket", "domain", "hosting", "addon", "reff", "summary"];
+function getStepOrder(paket: PaketId | null): Step[] {
+  const base: Step[] = ["paket", "domain"];
+  if (paket !== "landing") {
+    base.push("hosting");
+  }
+  return [...base, "addon", "reff", "summary"];
+}
 
 function getAllowedHosting(paketId: PaketId) {
   return HOSTING.filter((h) => h.paket.includes(paketId));
@@ -47,6 +50,12 @@ function getAddonById(id: AddonId) {
   return ADDON.find((a) => a.id === id);
 }
 
+function getDefaultHosting(paketId: PaketId): HostingId {
+  if (paketId === "landing") return "free";
+  if (paketId === "umkm") return "free";
+  return "backend";
+}
+
 interface CalculatorModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -63,18 +72,20 @@ export function CalculatorModal({ isOpen, onClose, initialPaket }: CalculatorMod
   const [reffValid, setReffValid] = useState(false);
   const [reffNama, setReffNama] = useState("");
 
-  const currentStep = STEP_ORDER[stepIndex];
+  const stepOrder = getStepOrder(paket);
+  const currentStep = stepOrder[stepIndex];
   const isFirstStep = stepIndex === 0;
-  const isLastStep = stepIndex === STEP_ORDER.length - 1;
+  const isLastStep = stepIndex === stepOrder.length - 1;
 
   const allowedHosting = paket ? getAllowedHosting(paket) : [];
   const allowedAddons = paket ? getAllowedAddons(paket) : [];
 
   useEffect(() => {
-    if (paket && !allowedHosting.some((h) => h.id === hosting)) {
-      setHosting((allowedHosting[0]?.id || "none") as HostingId);
-    }
     if (paket) {
+      const defaultHosting = getDefaultHosting(paket);
+      if (!allowedHosting.some((h) => h.id === hosting)) {
+        setHosting(defaultHosting);
+      }
       setAddons((prev) => prev.filter((a) => allowedAddons.some((allowed) => allowed.id === a)));
     }
   }, [paket, allowedHosting, allowedAddons, hosting]);
@@ -82,6 +93,7 @@ export function CalculatorModal({ isOpen, onClose, initialPaket }: CalculatorMod
   useEffect(() => {
     if (isOpen && initialPaket) {
       setPaket(initialPaket);
+      setHosting(getDefaultHosting(initialPaket));
       setStepIndex(1);
     } else if (isOpen) {
       setStepIndex(0);
@@ -89,17 +101,17 @@ export function CalculatorModal({ isOpen, onClose, initialPaket }: CalculatorMod
   }, [isOpen, initialPaket]);
 
   const nextStep = useCallback(() => {
-    if (stepIndex < STEP_ORDER.length - 1) setStepIndex((i) => i + 1);
-  }, [stepIndex]);
+    if (stepIndex < stepOrder.length - 1) setStepIndex((i) => i + 1);
+  }, [stepIndex, stepOrder.length]);
 
   const prevStep = useCallback(() => {
     if (stepIndex > 0) setStepIndex((i) => i - 1);
   }, [stepIndex]);
 
   const goToStep = useCallback((targetStep: Step) => {
-    const idx = STEP_ORDER.indexOf(targetStep);
+    const idx = stepOrder.indexOf(targetStep);
     if (idx !== -1) setStepIndex(idx);
-  }, []);
+  }, [stepOrder]);
 
   const validateReff = useCallback(() => {
     const code = reffCode.toUpperCase();
@@ -172,7 +184,7 @@ export function CalculatorModal({ isOpen, onClose, initialPaket }: CalculatorMod
           </div>
 
           <div className="flex items-center justify-between px-5 py-3 border-b border-line bg-cream-dim overflow-x-auto scrollbar-hide">
-            {STEP_ORDER.map((s, i) => (
+            {stepOrder.map((s, i) => (
               <button
                 key={s}
                 onClick={() => goToStep(s)}
@@ -400,11 +412,14 @@ function HostingStep({ hosting, onSelect, onNext, onBack, allowedHosting, hasPak
 function AddonStep({ addons, onToggle, onNext, onBack, allowedAddons, hasPaket }: { addons: AddonId[]; onToggle: (ids: AddonId[]) => void; onNext: () => void; onBack: () => void; allowedAddons: typeof ADDON; hasPaket: boolean }) {
   if (!hasPaket) return <EmptyState onBack={onBack} message="Pilih paket terlebih dahulu" />;
 
+  const cmsAddon = getCmsAddon();
+  const allAddons = cmsAddon ? [cmsAddon, ...allowedAddons.filter(a => a.id !== "cms")] : allowedAddons;
+
   return (
     <div className="space-y-3">
       <p className="text-sm text-ink-muted text-center">Tambahkan layanan opsional (hanya yang relevan ditampilkan)</p>
       <div className="grid gap-2 sm:grid-cols-2 max-h-64 overflow-y-auto">
-        {allowedAddons.map((a) => {
+        {allAddons.map((a) => {
           const isSelected = addons.includes(a.id as AddonId);
           return (
             <label
@@ -474,9 +489,7 @@ function ReffStep({ reffCode, onChange, onSubmit, reffValid, reffNama, onNext, o
 }
 
 function SummaryStep({ totals, paket, domain, hosting, addons, reffValid, reffNama, onBack, onOrder }: {
-  totals: ReturnType<typeof getPaketById> extends { hargaDiskon: number } ? {
-    paketHarga: number; domainHarga: number; hostingHarga: number; addonsHarga: number; subtotal: number; diskonReff: number; total: number;
-  } : { paketHarga: number; domainHarga: number; hostingHarga: number; addonsHarga: number; subtotal: number; diskonReff: number; total: number; };
+  totals: { paketHarga: number; domainHarga: number; hostingHarga: number; addonsHarga: number; subtotal: number; diskonReff: number; total: number };
   paket: PaketId | null;
   domain: DomainId;
   hosting: HostingId;
@@ -489,6 +502,7 @@ function SummaryStep({ totals, paket, domain, hosting, addons, reffValid, reffNa
   const pkg = getPaketById(paket!);
   const dom = getDomainById(domain);
   const host = getHostingById(hosting);
+  const cmsAddon = addons.includes("cms");
 
   return (
     <div className="space-y-4">
@@ -513,11 +527,17 @@ function SummaryStep({ totals, paket, domain, hosting, addons, reffValid, reffNa
               <dd className="font-semibold text-ink">{formatIdr(totals.hostingHarga)}/tahun</dd>
             </div>
           )}
-          {addons.length > 0 && (
+          {cmsAddon && (
+            <div className="flex justify-between">
+              <dt className="text-ink-soft">CMS Custom (Kelola Artikel & Konten Sendiri)</dt>
+              <dd className="font-semibold text-ink">{formatIdr(500_000)}</dd>
+            </div>
+          )}
+          {addons.filter(id => id !== "cms").length > 0 && (
             <div className="border-t border-line pt-2">
-              <dt className="text-ink-soft">Add-on ({addons.length})</dt>
+              <dt className="text-ink-soft">Add-on lain ({addons.filter(id => id !== "cms").length})</dt>
               <dd className="mt-1 space-y-1">
-                {addons.map((id) => {
+                {addons.filter(id => id !== "cms").map((id) => {
                   const a = getAddonById(id);
                   return a ? (
                     <div key={a.id} className="flex justify-between text-xs">
