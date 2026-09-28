@@ -478,7 +478,7 @@ export default function HargaCalculator({
               <ChevronRight className="h-4 w-4 text-ink-muted" />
             </button>
           </DrawerTrigger>
-          <DrawerContent className="max-h-[88vh]">
+          <DrawerContent className="max-h-[88vh] pb-6">
             <DrawerHeader className="pb-4">
               <DrawerTitle>Ringkasan Pesanan</DrawerTitle>
             </DrawerHeader>
