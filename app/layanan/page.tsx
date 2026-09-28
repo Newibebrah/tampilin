@@ -1,15 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowUpRight, Check, Sparkles, Calculator, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Check, Sparkles, Calculator, MessageCircle, TrendingDown } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn, formatIdr, waLink } from "@/lib/utils";
 import { SITE } from "@/content/site";
 import { PAKET, HOSTING, ADDON } from "@/lib/data";
 import { SectionLabel } from "@/components/SectionLabel";
-import { CalculatorModal } from "@/components/CalculatorModal";
-import { Button } from "@/components/ui/Button";
 import { RevealMask, StaggerReveal } from "@/components/sections/RevealMask";
 
 function getHostingForPaket(paketId: string) {
@@ -21,19 +18,6 @@ function getAddonsForPaket(paketId: string) {
 }
 
 export default function LayananPage() {
-  const [calculatorOpen, setCalculatorOpen] = useState(false);
-  const [selectedPaket, setSelectedPaket] = useState<"landing" | "umkm" | "ecommerce" | null>(null);
-
-  const handleOpenCalculator = (paketId: "landing" | "umkm" | "ecommerce") => {
-    setSelectedPaket(paketId);
-    setCalculatorOpen(true);
-  };
-
-  const handleCloseCalculator = () => {
-    setCalculatorOpen(false);
-    setSelectedPaket(null);
-  };
-
   const services = PAKET.map((p) => ({
     id: p.id,
     name: p.nama,
@@ -51,24 +35,36 @@ export default function LayananPage() {
       {/* GRADIENT BACKGROUND */}
       <div className="fixed inset-0 bg-gradient-flame-lime z-0" aria-hidden="true" />
 
-      <main className="relative z-10">
+      <div className="relative z-10">
         {/* HEADER */}
         <section className="border-b border-border/50">
           <div className="section-shell py-16 sm:py-24 lg:py-32">
             <div className="max-w-3xl mx-auto text-center">
-              <RevealMask delay={100}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <SectionLabel no="02" label="Layanan" className="inline-flex justify-center" />
-              </RevealMask>
-              <RevealMask delay={200}>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <h1 className="display-lg mt-7 text-balance">
                   Pilih paket yang <span className="text-flame">paling pas</span> untuk bisnis Anda.
                 </h1>
-              </RevealMask>
-              <RevealMask delay={300}>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <p className="lede mt-7 max-w-2xl mx-auto">
                   Harga jelas, no bonus kejutan. Tiap paket sudah termasuk desain custom, hosting siap pakai, dan garansi revisi.
                 </p>
-              </RevealMask>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -141,61 +137,59 @@ export default function LayananPage() {
                   <h2 className="heading-lg mb-3">{paket.name}</h2>
                   <p className="body-sm text-ink-muted mb-6 flex-1">{paket.description}</p>
 
-                  <div className="flex items-baseline gap-3 mb-6">
-                    <span className="text-display-sm font-display font-medium text-ink">
-                      Rp{paket.price.toLocaleString("id-ID")}
+                  <div className="mb-6 border-y border-border py-5">
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <span className="text-display-sm font-display font-medium leading-none text-ink">
+                        Rp{paket.price.toLocaleString("id-ID")}
+                      </span>
+                      <span className="text-body-sm text-ink-muted line-through decoration-ink-subtle/60">
+                        Rp{paket.originalPrice.toLocaleString("id-ID")}
+                      </span>
+                    </div>
+                    <span className="mt-3 inline-flex items-center gap-1.5 rounded-pill bg-lime px-3 py-1 text-mono-xs font-bold uppercase tracking-[0.08em] text-forest">
+                      <TrendingDown className="h-3.5 w-3.5" strokeWidth={2.5} />
+                      Hemat Rp{(paket.originalPrice - paket.price).toLocaleString("id-ID")}
                     </span>
-                    <span className="text-body-sm line-through text-ink-muted">
-                      Rp{paket.originalPrice.toLocaleString("id-ID")}
-                    </span>
-                    <span className="tag tag-lime ml-auto">Hemat Rp{(paket.originalPrice - paket.price).toLocaleString("id-ID")}</span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-mono-xs text-ink-muted mb-6">
+                  <div className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-mono-xs text-ink-muted">
                     <span>Domain: </span>
-                    <span className="font-medium">Termasuk 1 tahun</span>
-                    <span>·</span>
+                    <span className="font-medium text-ink">Termasuk 1 tahun</span>
+                    <span aria-hidden="true">·</span>
                     <span>Hosting: </span>
-                    <span className="font-medium">
+                    <span className="font-medium text-ink">
                       {freeHosting ? "Gratis (Netlify/Cloudflare)" : paidHosting ? `${formatIdr(paidHosting.harga)}/tahun` : "Tidak termasuk"}
                     </span>
-                    <span>·</span>
+                    <span aria-hidden="true">·</span>
                     <span>{addonCount} add-on tersedia</span>
                   </div>
 
-                  <ul className="space-y-3 mb-6 flex-1">
+                  <ul className="mb-6 flex-1 space-y-3">
                     {paket.features.slice(0, 4).map((feature) => (
-                      <li key={feature} className="flex items-start gap-3 text-body-sm text-ink-soft">
-                        <span className="mt-0.5 flex-shrink-0 h-5 w-5 rounded-full bg-flame/10 flex items-center justify-center">
+                      <li key={feature} className="flex items-start gap-3 text-body-sm text-ink-muted">
+                        <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-flame/10">
                           <span className="h-1.5 w-1.5 rounded-full bg-lime" />
                         </span>
                         {feature}
                       </li>
                     ))}
                     {paket.features.length > 4 && (
-                      <li className="text-body-sm text-flame font-medium">+{paket.features.length - 4} fitur lain</li>
+                      <li className="text-body-sm font-medium text-flame">+{paket.features.length - 4} fitur lain</li>
                     )}
                   </ul>
 
-                  <div className="flex gap-3 pt-4 border-t border-border">
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      className="flex-1"
-                      onClick={() => handleOpenCalculator(paket.id as "landing" | "umkm" | "ecommerce")}
-                    >
-                      <Calculator className="h-4 w-4" />
-                      Simulasi Harga
-                    </Button>
+                  <div className="border-t border-border pt-5">
                     <Link
-                      href={waLink(`Halo ${SITE.name}, saya pilih paket *${paket.name}* (Rp${formatIdr(paket.price)}).`)}
+                      href={waLink(`Halo ${SITE.name}, saya pilih paket *${paket.name}* (${formatIdr(paket.price)}).`)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="group block"
                     >
-                      <Button variant="secondary" size="sm" className="flex-1">
+                      <span className="flex w-full items-center justify-center gap-2 rounded-sharp bg-flame px-8 py-4 text-body font-semibold text-paper transition-all duration-micro hover:bg-flame-hover hover:gap-3 active:scale-[0.98]">
                         <MessageCircle className="h-4 w-4" />
-                        Pesan
-                      </Button>
+                        Pesan Paket Ini
+                        <ArrowUpRight className="h-4 w-4 transition-transform duration-standard group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </span>
                     </Link>
                   </div>
                 </motion.article>
@@ -226,69 +220,72 @@ export default function LayananPage() {
         {/* SIMULASI HARGA CTA SECTION */}
         <section className="section-shell py-16 sm:py-24">
           <RevealMask>
-            <div className="relative rounded-3xl overflow-hidden bg-ink p-8 sm:p-12 lg:p-16">
-              <div className="absolute inset-0 bg-gradient-to-br from-flame/20 via-transparent to-lime/10" />
-              <div className="relative grid gap-8 lg:grid-cols-2 lg:items-center">
-                <div className="max-w-xl">
-                  <p className="eyebrow text-lime">Kalkulasi Harga Transparan</p>
-                  <h3 className="mt-3 display-sm text-white text-balance">
-                    Tahu pasti berapa budget yang dibutuhkan <span className="text-lime">sebelum memesan</span>.
-                  </h3>
-                  <p className="mt-5 text-lg leading-7 text-white/80">
-                    Pilih paket, domain, dan hosting — sistem kami hitung totalnya otomatis.
-                    Tanpa biaya tersembunyi, tanpa tekanan sales.
-                  </p>
-                  <ul className="mt-8 space-y-3" role="list">
+            <div className="relative overflow-hidden rounded-3xl border-[3px] border-ink bg-lime p-8 sm:p-12 lg:p-14">
+              <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-flame/90 blur-3xl" />
+              <div className="absolute -bottom-24 -left-10 h-64 w-64 rounded-full bg-forest/20 blur-3xl" />
+
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 rounded-pill bg-forest px-4 py-2">
+                  <Calculator className="h-3.5 w-3.5 text-lime" />
+                  <span className="text-mono-xs font-bold uppercase tracking-[0.14em] text-lime">
+                    Kalkulasi Harga Transparan
+                  </span>
+                </div>
+
+                <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
+                  <div>
+                    <h3 className="display-md text-balance text-forest">
+                      Tahu pasti berapa budget yang dibutuhkan{" "}
+                      <span className="text-flame">sebelum memesan</span>.
+                    </h3>
+                    <p className="mt-5 text-lg font-medium leading-relaxed text-forest/80">
+                      Pilih paket, domain, dan hosting — sistem kami hitung totalnya otomatis.
+                      Tanpa biaya tersembunyi, tanpa tekanan sales.
+                    </p>
+
+                    <Link
+                      href="/harga"
+                      className="group mt-8 inline-flex items-center gap-3 rounded-sharp bg-forest px-8 py-5 text-lg font-bold text-lime transition-all duration-standard hover:bg-forest/85 active:scale-[0.98]"
+                    >
+                      <span className="grid h-10 w-10 place-items-center rounded-sharp bg-lime text-forest">
+                        <Calculator className="h-5 w-5" />
+                      </span>
+                      <span>Mulai Simulasi Harga</span>
+                      <ArrowUpRight className="h-5 w-5 transition-transform duration-standard group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </Link>
+                    <p className="mt-4 text-sm font-medium text-forest/70">
+                      Tidak ada komitmen · Bisa dibatalkan kapan saja · Estimasi akurat
+                    </p>
+                  </div>
+
+                  <ul
+                    className="grid gap-3 rounded-2xl border-2 border-forest/20 bg-forest p-6 sm:p-7"
+                    role="list"
+                  >
                     {[
                       "Harga paket website (sudah termasuk desain custom & revisi)",
                       "Biaya domain per tahun (.com, .id, .my.id, dll)",
                       "Hosting: Gratis untuk Landing Page & UMKM",
                       "Opsional CMS kelola artikel/konten sendiri (+Rp500rb)",
                       "Potongan referral Rp50.000 jika punya kode",
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-white/90">
-                        <span className="mt-1 flex-shrink-0 h-5 w-5 rounded-full bg-white/20 flex items-center justify-center">
-                          <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                    ].map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 text-body-sm font-medium text-white/90"
+                      >
+                        <span className="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-sharp bg-lime">
+                          <Check className="h-3 w-3 text-forest" strokeWidth={3.5} />
                         </span>
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="relative">
-                  <div className="absolute -inset-4 rounded-3xl border border-white/10" />
-                  <a
-                    href="/harga"
-                    className="relative inline-flex items-center gap-3 rounded-xl bg-white px-8 py-5 text-lg font-semibold text-flame shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:bg-white/90 hover:scale-[1.02] transition-all duration-200"
-                  >
-                    <span className="flex items-center justify-center h-10 w-10 rounded-lg bg-flame/10">
-                      <Calculator className="h-5 w-5 text-flame" />
-                    </span>
-                    <span>Mulai Simulasi Harga</span>
-                    <svg className="h-5 w-5 ml-2 text-flame" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </a>
-                  <p className="mt-5 text-sm text-white/60 text-center sm:text-left">
-                    Tidak ada komitmen · Bisa dibatalkan kapan saja · Estimasi akurat
-                  </p>
-                </div>
-              </div>
-              <div className="absolute bottom-4 right-4 hidden lg:block opacity-5">
-                <svg className="h-32 w-32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
               </div>
             </div>
           </RevealMask>
         </section>
-      </main>
-
-      <CalculatorModal
-        isOpen={calculatorOpen}
-        onClose={handleCloseCalculator}
-        initialPaket={selectedPaket || undefined}
-      />
+      </div>
     </>
   );
 }

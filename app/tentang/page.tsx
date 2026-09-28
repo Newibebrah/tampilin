@@ -119,7 +119,7 @@ export default function TentangPage() {
         <div className="section-shell flex flex-col gap-6 py-14 sm:flex-row sm:items-center sm:justify-between sm:py-16">
           <div>
             <p className="eyebrow">Lokasi & waktu</p>
-            <p className="mt-3 text-sm text-ink-soft">{SITE.city} · {SITE.hours}</p>
+            <p className="mt-3 text-sm text-ink-muted">{SITE.city} · {SITE.hours}</p>
           </div>
           <span className="flex items-center gap-2 text-sm text-ink-muted"><Clock3 className="h-4 w-4" /> Respons chat biasanya di bawah 1 jam</span>
         </div>

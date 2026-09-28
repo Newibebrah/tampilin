@@ -63,14 +63,7 @@ export default function HomePage() {
               dengan website yang jelas, cepat, dan siap mengubah pengunjung menjadi pelanggan.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link
-                href="/layanan"
-                className="button-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: document.getElementById("layanan")?.offsetTop || 0, behavior: "smooth" });
-                }}
-              >
+              <Link href="/layanan" className="button-primary">
                 Lihat paket & harga
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
@@ -139,7 +132,7 @@ export default function HomePage() {
                       <span className="grid h-6 w-6 place-items-center rounded-full bg-flame/10 text-xs font-semibold text-flame">
                         0{index + 1}
                       </span>
-                      <span className="text-sm text-ink-soft">{item}</span>
+                      <span className="text-sm text-ink-muted">{item}</span>
                       <Check className="ml-auto h-4 w-4 text-flame" />
                     </motion.div>
                   ))}
@@ -235,15 +228,10 @@ export default function HomePage() {
 
           <BentoGrid
             services={services}
-            onSimulate={(id) => {
-              const url = new URL("/harga", window.location.origin);
-              url.searchParams.set("paket", id);
-              window.location.href = url.toString();
-            }}
             onOrder={(id) => {
               const pkg = PAKET.find((p) => p.id === id);
               if (pkg) {
-                window.open(waLink(`Halo ${SITE.name}, saya mau pesan paket *${pkg.nama}* (Rp${formatIdr(pkg.hargaDiskon)}).`), "_blank");
+                window.open(waLink(`Halo ${SITE.name}, saya mau pesan paket *${pkg.nama}* (${formatIdr(pkg.hargaDiskon)}).`), "_blank");
               }
             }}
           />
@@ -275,14 +263,14 @@ export default function HomePage() {
                       <span className="mt-1 flex-shrink-0 h-5 w-5 rounded-full bg-white/20 flex items-center justify-center">
                         <span className="h-1.5 w-1.5 rounded-full bg-lime" />
                       </span>
-                      <span dangerouslySetInnerHTML={{ __html: item }} />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="relative">
                 <div className="absolute -inset-4 rounded-3xl border border-white/10" />
-                <a
+                <Link
                   href="/harga"
                   className="relative inline-flex items-center gap-3 rounded-xl bg-white px-8 py-5 text-lg font-semibold text-flame shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:bg-white/90 hover:scale-[1.02] transition-all duration-200"
                 >
@@ -295,7 +283,7 @@ export default function HomePage() {
                   <svg className="h-5 w-5 ml-2 text-flame" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                </a>
+                </Link>
                 <p className="mt-5 text-sm text-white/60 text-center sm:text-left">
                   Tidak ada komitmen · Bisa dibatalkan kapan saja · Estimasi akurat
                 </p>

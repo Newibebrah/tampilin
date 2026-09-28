@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
-import { ArrowUpRight, Sparkles, Globe2, Layers3, Store } from "lucide-react";
+import { ArrowUpRight, Sparkles, Globe2, Layers3, Store, TrendingDown } from "lucide-react";
 
 interface ServiceCardProps {
   id: string;
@@ -15,7 +15,6 @@ interface ServiceCardProps {
   features: string[];
   icon: "globe" | "layers" | "store";
   isPopular?: boolean;
-  onSimulate: () => void;
   onOrder: () => void;
 }
 
@@ -29,12 +28,10 @@ export function ServiceCard({
   features,
   icon,
   isPopular = false,
-  onSimulate,
   onOrder,
 }: ServiceCardProps) {
   const IconComponent = icon === "globe" ? Globe2 : icon === "layers" ? Layers3 : Store;
-
-  const icons = { globe: Globe2, layers: Layers3, store: Store };
+  const savings = originalPrice - price;
 
   return (
     <motion.article
@@ -49,13 +46,13 @@ export function ServiceCard({
     >
       {isPopular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center gap-1.5 rounded-pill bg-flame/10 px-3 py-1 text-mono-xs font-semibold text-flame">
+          <span className="inline-flex items-center gap-1.5 rounded-pill bg-flame px-3 py-1 text-mono-xs font-semibold text-paper">
             <Sparkles className="h-3 w-3" /> Paling Populer
           </span>
         </div>
       )}
 
-      <div className="flex items-start justify-between gap-4 mb-6">
+      <div className="mb-6 flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-xl bg-flame/10 text-flame">
             <IconComponent className="h-6 w-6" />
@@ -66,44 +63,44 @@ export function ServiceCard({
       </div>
 
       <h3 className="heading-md mb-3">{name}</h3>
-      <p className="body-sm text-ink-muted mb-6 flex-1">{description}</p>
+      <p className="body-sm mb-6 flex-1 text-ink-muted">{description}</p>
 
-      <div className="flex items-baseline gap-3 mb-6">
-        <span className="text-display-sm font-display font-medium text-ink">
-          Rp{price.toLocaleString("id-ID")}
+      <div className="mb-6 border-y border-border py-5">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span className="text-display-sm font-display font-medium leading-none text-ink">
+            Rp{price.toLocaleString("id-ID")}
+          </span>
+          <span className="text-body-sm text-ink-muted line-through decoration-ink-subtle/60">
+            Rp{originalPrice.toLocaleString("id-ID")}
+          </span>
+        </div>
+        <span className="mt-3 inline-flex items-center gap-1.5 rounded-pill bg-lime px-3 py-1 text-mono-xs font-bold uppercase tracking-[0.08em] text-forest">
+          <TrendingDown className="h-3.5 w-3.5" strokeWidth={2.5} />
+          Hemat Rp{savings.toLocaleString("id-ID")}
         </span>
-        <span className="text-body-sm line-through text-ink-muted">
-          Rp{originalPrice.toLocaleString("id-ID")}
-        </span>
-        <span className="tag tag-lime ml-auto">Hemat Rp{(originalPrice - price).toLocaleString("id-ID")}</span>
       </div>
 
-      <ul className="space-y-3 mb-6 flex-1">
+      <ul className="mb-6 flex-1 space-y-3">
         {features.slice(0, 4).map((feature) => (
-          <li key={feature} className="flex items-start gap-3 text-body-sm text-ink-soft">
-            <span className="mt-0.5 flex-shrink-0 h-5 w-5 rounded-full bg-flame/10 flex items-center justify-center">
+          <li key={feature} className="flex items-start gap-3 text-body-sm text-ink-muted">
+            <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-flame/10">
               <span className="h-1.5 w-1.5 rounded-full bg-lime" />
             </span>
             {feature}
           </li>
         ))}
         {features.length > 4 && (
-          <li className="text-body-sm text-flame font-medium">+{features.length - 4} fitur lain</li>
+          <li className="text-body-sm font-medium text-flame">+{features.length - 4} fitur lain</li>
         )}
       </ul>
 
-      <div className="flex gap-3 pt-4 border-t border-border">
-        <Button variant="primary" size="sm" className="flex-1" onClick={onSimulate}>
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-          Simulasi Harga
-        </Button>
-        <Button variant="secondary" size="sm" className="flex-1" onClick={onOrder}>
+      <div className="border-t border-border pt-5">
+        <Button size="lg" className="group w-full" onClick={onOrder}>
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
-          Pesan
+          Pesan Paket Ini
+          <ArrowUpRight className="h-4 w-4 transition-transform duration-standard group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Button>
       </div>
     </motion.article>
@@ -122,18 +119,16 @@ interface BentoGridProps {
     icon: "globe" | "layers" | "store";
     isPopular?: boolean;
   }>;
-  onSimulate: (id: string) => void;
   onOrder: (id: string) => void;
 }
 
-export function BentoGrid({ services, onSimulate, onOrder }: BentoGridProps) {
+export function BentoGrid({ services, onOrder }: BentoGridProps) {
   return (
     <div className="grid gap-6 lg:grid-cols-3">
-      {services.map((service, index) => (
+      {services.map((service) => (
         <ServiceCard
           key={service.id}
           {...service}
-          onSimulate={() => onSimulate(service.id)}
           onOrder={() => onOrder(service.id)}
         />
       ))}

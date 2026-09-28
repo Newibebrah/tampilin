@@ -511,37 +511,37 @@ function SummaryStep({ totals, paket, domain, hosting, addons, reffValid, reffNa
         <dl className="mt-3 space-y-2 text-sm">
           {pkg && (
             <div className="flex justify-between">
-              <dt className="text-ink-soft">{pkg.nama}</dt>
+              <dt className="text-ink-muted">{pkg.nama}</dt>
               <dd className="font-semibold text-ink">{formatIdr(totals.paketHarga)}</dd>
             </div>
           )}
           {dom && dom.harga > 0 && (
             <div className="flex justify-between">
-              <dt className="text-ink-soft">Domain {dom.nama}</dt>
+              <dt className="text-ink-muted">Domain {dom.nama}</dt>
               <dd className="font-semibold text-ink">{formatIdr(totals.domainHarga)}</dd>
             </div>
           )}
           {host && host.harga > 0 && (
             <div className="flex justify-between">
-              <dt className="text-ink-soft">Hosting {host.nama}</dt>
+              <dt className="text-ink-muted">Hosting {host.nama}</dt>
               <dd className="font-semibold text-ink">{formatIdr(totals.hostingHarga)}/tahun</dd>
             </div>
           )}
           {cmsAddon && (
             <div className="flex justify-between">
-              <dt className="text-ink-soft">CMS Custom (Kelola Artikel & Konten Sendiri)</dt>
+              <dt className="text-ink-muted">CMS Custom (Kelola Artikel & Konten Sendiri)</dt>
               <dd className="font-semibold text-ink">{formatIdr(500_000)}</dd>
             </div>
           )}
           {addons.filter(id => id !== "cms").length > 0 && (
             <div className="border-t border-line pt-2">
-              <dt className="text-ink-soft">Add-on lain ({addons.filter(id => id !== "cms").length})</dt>
+              <dt className="text-ink-muted">Add-on lain ({addons.filter(id => id !== "cms").length})</dt>
               <dd className="mt-1 space-y-1">
                 {addons.filter(id => id !== "cms").map((id) => {
                   const a = getAddonById(id);
                   return a ? (
                     <div key={a.id} className="flex justify-between text-xs">
-                      <span className="text-ink-soft">{a.nama}</span>
+                      <span className="text-ink-muted">{a.nama}</span>
                       <span className="font-medium text-ink">{formatIdr(a.harga)}</span>
                     </div>
                   ) : null;
@@ -552,7 +552,7 @@ function SummaryStep({ totals, paket, domain, hosting, addons, reffValid, reffNa
         </dl>
         <div className="mt-3 border-t border-line pt-3 space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-ink-soft">Subtotal</span>
+            <span className="text-ink-muted">Subtotal</span>
             <span className="font-semibold text-ink">{formatIdr(totals.subtotal)}</span>
           </div>
           {reffValid && totals.diskonReff > 0 && (

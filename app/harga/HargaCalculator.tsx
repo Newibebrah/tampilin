@@ -290,7 +290,12 @@ export default function HargaCalculator({
           </p>
         </motion.header>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px] lg:items-start">
+        <div
+          className={cn(
+            "mt-10 grid gap-8 lg:items-start",
+            currentStep === "summary" ? "lg:grid-cols-1" : "lg:grid-cols-[1fr_360px]"
+          )}
+        >
           <div>
             <nav
               aria-label="Langkah simulasi harga"
@@ -384,12 +389,29 @@ export default function HargaCalculator({
                   )}
 
                   {currentStep === "summary" && (
-                    <div className="lg:hidden">
-                      <div className="rounded-sharp border border-border bg-paper p-6">
-                        <h2 className="heading-sm mb-5">Ringkasan Pesanan</h2>
+                    <motion.div
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="mx-auto w-full max-w-2xl"
+                    >
+                      <div className="rounded-sharp border border-border bg-paper p-6 shadow-layer-1 sm:p-8">
+                        <div className="mb-6 flex items-center gap-3 border-b border-border pb-5">
+                          <span className="grid h-11 w-11 place-items-center rounded-soft bg-flame/10 text-flame">
+                            <Check className="h-5 w-5" />
+                          </span>
+                          <div>
+                            <h2 className="heading-sm">Ringkasan Pesanan</h2>
+                            <p className="mt-0.5 text-xs text-ink-muted">
+                              {paket
+                                ? `Paket ${getPaket(paket)?.nama} · ${stepOrder.length - 1} langkah selesai`
+                                : "Paket belum dipilih"}
+                            </p>
+                          </div>
+                        </div>
                         {summaryBody}
                       </div>
-                    </div>
+                    </motion.div>
                   )}
                 </motion.div>
               </AnimatePresence>
@@ -417,20 +439,22 @@ export default function HargaCalculator({
             </div>
           </div>
 
-          <aside className="hidden lg:block">
-            <div className="sticky top-24">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-                aria-live="polite"
-                className="rounded-sharp border border-border bg-paper/80 p-6 shadow-layer-2 backdrop-blur-[12px]"
-              >
-                <h2 className="heading-sm mb-5">Ringkasan</h2>
-                {summaryBody}
-              </motion.div>
-            </div>
-          </aside>
+          {currentStep !== "summary" && (
+            <aside className="hidden lg:block">
+              <div className="sticky top-24">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  aria-live="polite"
+                  className="rounded-sharp border border-border bg-paper/80 p-6 shadow-layer-2 backdrop-blur-[12px]"
+                >
+                  <h2 className="heading-sm mb-5">Ringkasan</h2>
+                  {summaryBody}
+                </motion.div>
+              </div>
+            </aside>
+          )}
         </div>
       </div>
 
