@@ -54,10 +54,10 @@ export function HorizontalScroll({
       <div
         ref={containerRef}
         className={cn(
-          "flex gap-6 overflow-x-auto scrollbar-hide pb-4 -mb-4",
+          "flex overflow-x-auto scrollbar-hide pb-4 -mb-4",
           "scroll-snap-x"
         )}
-        style={{ scrollSnapType: "x mandatory" }}
+        style={{ scrollSnapType: "x mandatory", gap: `${gap}px` }}
       >
         {React.Children.map(children, (child) =>
           React.isValidElement(child)

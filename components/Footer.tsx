@@ -8,7 +8,7 @@ import { SITE, NAV_LINKS, FOOTER_NOTE } from "@/content/site";
 import { useTheme } from "next-themes";
 
 export function Footer() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

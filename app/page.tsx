@@ -3,17 +3,16 @@
 import { ArrowUpRight, Check, Sparkles, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn, formatIdr, waLink } from "@/lib/utils";
+import { formatIdr, waLink } from "@/lib/utils";
 import { SITE } from "@/content/site";
 import { PAKET } from "@/lib/data";
 import { PROSES_STEPS, KENAPA_TAMPILIN } from "@/content/home";
 import { SectionLabel } from "@/components/SectionLabel";
 import { MeshGradient } from "@/components/sections/HeroMeshGradient";
 import { KineticText } from "@/components/sections/KineticText";
-import { RevealMask, StaggerReveal } from "@/components/sections/RevealMask";
+import { StaggerReveal } from "@/components/sections/RevealMask";
 import { BentoGrid } from "@/components/sections/BentoGrid";
 import { HorizontalScroll, TimelineStep } from "@/components/sections/HorizontalScroll";
-import { Button } from "@/components/ui/Button";
 
 const TRUST_POINTS = [
   { value: "5–14", label: "hari rata-rata pengerjaan" },

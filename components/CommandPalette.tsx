@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
-import { SITE, NAV_LINKS } from "@/content/site";
 import { waLink } from "@/lib/utils";
 
 interface CommandPaletteContextType {
@@ -47,7 +46,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   const handleAction = useCallback((action: string) => {
     switch (action) {

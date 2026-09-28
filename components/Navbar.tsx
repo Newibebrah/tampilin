@@ -3,12 +3,11 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X, Sun, Moon, Command, Sparkles, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Menu, Sun, Moon, Command, Sparkles, MessageCircle } from "lucide-react";
 import { cn, waLink } from "@/lib/utils";
 import { SITE, NAV_LINKS } from "@/content/site";
 import { useTheme } from "next-themes";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/Drawer";
-import { Button } from "@/components/ui/Button";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -16,7 +15,7 @@ export function Navbar() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const magneticRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
 
