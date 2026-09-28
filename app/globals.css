@@ -156,6 +156,10 @@
     @apply font-sans text-body-lg text-ink-muted;
   }
 
+  .lede {
+    @apply font-sans text-body-lg leading-relaxed tracking-[-0.01em] text-ink-muted;
+  }
+
   .body {
     @apply font-sans text-body text-ink-muted;
   }
