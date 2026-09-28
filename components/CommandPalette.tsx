@@ -57,23 +57,32 @@ const COMMANDS: PaletteItem[] = [
 
 export function CommandPaletteProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
+  const [session, setSession] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
   const { setTheme, resolvedTheme } = useTheme();
 
   const openPalette = useCallback(() => {
-    setQuery("");
+    setSearch("");
+    setSession((n) => n + 1);
     setIsOpen(true);
   }, []);
 
-  const closePalette = useCallback(() => setIsOpen(false), []);
+  const closePalette = useCallback(() => {
+    setSearch("");
+    setIsOpen(false);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        setIsOpen((prev) => (prev ? false : true));
+        if (isOpen) {
+          closePalette();
+        } else {
+          openPalette();
+        }
       }
     };
 
@@ -86,7 +95,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("cmdk:open", handleOpenEvent);
     };
-  }, [openPalette]);
+  }, [isOpen, openPalette, closePalette]);
 
   const handleAction = useCallback(
     (action: string) => {
@@ -107,29 +116,25 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
     <CommandPaletteContext.Provider value={{ isOpen, setIsOpen }}>
       {children}
 
-      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Root open={isOpen} onOpenChange={(open) => (open ? openPalette() : closePalette())}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-          <Dialog.Content
-            className="fixed left-1/2 top-[12vh] z-[60] w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-sharp border border-border bg-paper shadow-layer-3 focus:outline-none"
-            onOpenAutoFocus={(event) => event.preventDefault()}
-          >
+          <Dialog.Overlay className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" />
+          <Dialog.Content className="fixed left-1/2 top-[12vh] z-[60] w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-sharp border border-border bg-paper shadow-layer-3 focus:outline-none">
             <Dialog.Title className="sr-only">Command palette</Dialog.Title>
             <Dialog.Description className="sr-only">
               Cari halaman atau jalankan aksi dengan cepat.
             </Dialog.Description>
 
             <Command
+              key={session}
               label="Command palette"
               loop
-              shouldFilter
               className="[&_[cmdk-group-heading]]:px-4 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-mono-xs [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.1em] [&_[cmdk-group-heading]]:text-ink-subtle"
             >
               <div className="flex items-center border-b border-border px-4">
                 <CommandInput
-                  autoFocus
-                  value={query}
-                  onValueChange={setQuery}
+                  value={search}
+                  onValueChange={setSearch}
                   placeholder="Cari halaman atau aksi..."
                   className="h-14 w-full bg-transparent text-body-lg text-ink outline-none placeholder:text-ink-subtle"
                 />
@@ -149,15 +154,15 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
                       key={cmd.href}
                       value={`${cmd.label} ${cmd.href}`}
                       onSelect={() => {
+                        closePalette();
                         if (cmd.external) {
                           window.open(cmd.href, "_blank", "noopener,noreferrer");
                         } else {
                           router.push(cmd.href!);
-                          if (pathname === cmd.href && cmd.href === "/") {
+                          if (pathname === cmd.href) {
                             window.scrollTo({ top: 0, behavior: "smooth" });
                           }
                         }
-                        closePalette();
                       }}
                       className={cn(
                         "flex cursor-pointer items-center justify-between gap-4 rounded-soft px-3 py-2.5 text-body text-ink data-[selected=true]:bg-paper-subtle",
@@ -185,8 +190,8 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
                       key={cmd.action}
                       value={`${cmd.label} ${cmd.action}`}
                       onSelect={() => {
-                        handleAction(cmd.action!);
                         closePalette();
+                        handleAction(cmd.action!);
                       }}
                       className="flex cursor-pointer items-center justify-between gap-4 rounded-soft px-3 py-2.5 text-body text-ink data-[selected=true]:bg-paper-subtle"
                     >
