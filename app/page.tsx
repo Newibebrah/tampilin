@@ -209,7 +209,7 @@ export default function HomePage() {
               Coba simulasi harga. Pilih paket, domain, dan hosting — lihat totalnya jelas, tanpa kejutan.
             </h3>
             <a
-              href="/kalkulator"
+              href="/katalog"
               className="mt-8 inline-flex items-center gap-2 button-primary"
             >
               <Calculator className="h-4 w-4" />
