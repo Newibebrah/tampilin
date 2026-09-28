@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --font-geist: "Inter Variable", "Inter", system-ui, sans-serif;
+    --font-geist: "Geist Variable", "Geist", system-ui, sans-serif;
     --font-fraunces: "Fraunces Variable", "Fraunces", Georgia, serif;
     --font-mono: "Geist Mono Variable", "Geist Mono", "JetBrains Mono", monospace;
 

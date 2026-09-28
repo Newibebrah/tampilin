@@ -45,10 +45,6 @@ export function Navbar() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-        event.preventDefault();
-        // Command palette will be handled by global listener
-      }
       if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -188,6 +184,24 @@ export function Navbar() {
                       <ArrowUpRight className="h-5 w-5 text-ink-muted" />
                     </Link>
                   ))}
+                  <div className="pt-4 border-t border-border">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpen(false);
+                        window.dispatchEvent(new CustomEvent("cmdk:open"));
+                      }}
+                      className="flex w-full items-center justify-between gap-4 py-3 text-body font-semibold text-ink transition-colors duration-micro hover:text-flame"
+                    >
+                      <span className="flex items-center gap-3">
+                        <Command className="h-4 w-4" />
+                        Cari halaman
+                      </span>
+                      <kbd className="mono-xs rounded-soft bg-paper-subtle px-2 py-0.5 text-ink-muted">
+                        ⌘K
+                      </kbd>
+                    </button>
+                  </div>
                   <div className="pt-4 border-t border-border">
                     <Link
                       href={waLink("Halo tampilin.online, saya mau tanya soal website.")}

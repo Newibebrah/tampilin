@@ -15,7 +15,7 @@ export function RotatingBadge({
       style={{ width: "9.5rem", height: "9.5rem" }}
       aria-label={text}
     >
-      <span className="font-serif text-sm font-semibold">{label}</span>
+      <span className="font-display text-sm font-semibold">{label}</span>
     </span>
   );
 }

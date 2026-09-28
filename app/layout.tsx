@@ -1,17 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import "@fontsource-variable/geist/wght.css";
+import "@fontsource-variable/geist-mono/wght.css";
+import "@fontsource-variable/fraunces/standard.css";
 import "./globals.css";
 import { SITE } from "@/content/site";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-geist",
-  display: "swap",
-  weight: "variable",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
@@ -40,11 +35,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={`${inter.variable} bg-paper`} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="id" className="bg-paper" suppressHydrationWarning>
+      <head />
       <body className="min-h-screen bg-paper text-ink antialiased font-sans">
         <a href="#main-content" className="skip-link">
           Skip to main content
