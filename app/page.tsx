@@ -67,7 +67,7 @@ export default function HomePage() {
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
               <a
-                href={waLink("Halo tampilin.online, saya mau tanya soal website.")}
+                href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="button-secondary"

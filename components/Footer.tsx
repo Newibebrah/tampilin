@@ -19,26 +19,6 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border bg-paper dark:bg-ink dark:border-border">
-      <div className="border-b border-border/50">
-        <div className="section-shell grid gap-8 py-14 md:grid-cols-[1fr_auto] md:items-end md:py-16">
-          <div>
-            <p className="eyebrow text-lime">Siap mulai?</p>
-            <h2 className="mt-4 max-w-2xl display-sm text-ink dark:text-paper">
-              Ceritakan bisnis Anda. Kami bantu bikin website yang layak dipakai.
-            </h2>
-          </div>
-          <a
-            href={waLink("Halo tampilin.online, saya mau mendiskusikan kebutuhan website saya.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button-primary"
-          >
-            Konsultasi via WhatsApp
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        </div>
-      </div>
-
       <div className="section-shell grid gap-12 py-14 md:grid-cols-12 md:py-16">
         <div className="md:col-span-5">
           <Link href="/" className="inline-flex items-center gap-2.5">

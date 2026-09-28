@@ -47,7 +47,7 @@ const COMMANDS: PaletteItem[] = [
   { label: "Tentang", href: "/tentang", icon: "ℹ️", shortcut: "⌘A" },
   {
     label: "WhatsApp",
-    href: waLink("Halo tampilin.online, saya mau tanya soal website."),
+    href: waLink(),
     icon: "💬",
     shortcut: "⌘W",
     external: true,

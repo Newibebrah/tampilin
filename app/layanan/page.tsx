@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Check, Sparkles, Calculator, MessageCircle, TrendingDown } from "lucide-react";
+import { ArrowUpRight, Sparkles, Calculator, MessageCircle, TrendingDown } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn, formatIdr, waLink } from "@/lib/utils";
@@ -228,24 +228,26 @@ export default function LayananPage() {
                 <div className="inline-flex items-center gap-2 rounded-pill bg-forest px-4 py-2">
                   <Calculator className="h-3.5 w-3.5 text-lime" />
                   <span className="text-mono-xs font-bold uppercase tracking-[0.14em] text-lime">
-                    Kalkulasi Harga Transparan
+                    Langkah berikutnya
                   </span>
                 </div>
 
                 <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
                   <div>
                     <h3 className="display-md text-balance text-forest">
-                      Tahu pasti berapa budget yang dibutuhkan{" "}
-                      <span className="text-flame">sebelum memesan</span>.
+                      Pilih paketnya, angkanya{" "}
+                      <span className="text-flame">muncul sendiri</span>.
                     </h3>
                     <p className="mt-5 text-lg font-medium leading-relaxed text-forest/80">
-                      Pilih paket, domain, dan hosting — sistem kami hitung totalnya otomatis.
-                      Tanpa biaya tersembunyi, tanpa tekanan sales.
+                      Domain, hosting, dan CMS ikut dihitung di dalamnya — jadi
+                      tidak ada komponen yang terlewat saat Anda membandingkan opsi.
                     </p>
+                  </div>
 
+                  <div>
                     <Link
                       href="/harga"
-                      className="group mt-8 inline-flex items-center gap-3 rounded-sharp bg-forest px-8 py-5 text-lg font-bold text-lime transition-all duration-standard hover:bg-forest/85 active:scale-[0.98]"
+                      className="group inline-flex items-center gap-3 rounded-sharp bg-forest px-8 py-5 text-lg font-bold text-lime transition-all duration-standard hover:bg-forest/85 active:scale-[0.98]"
                     >
                       <span className="grid h-10 w-10 place-items-center rounded-sharp bg-lime text-forest">
                         <Calculator className="h-5 w-5" />
@@ -257,29 +259,6 @@ export default function LayananPage() {
                       Tidak ada komitmen · Bisa dibatalkan kapan saja · Estimasi akurat
                     </p>
                   </div>
-
-                  <ul
-                    className="grid gap-3 rounded-2xl border-2 border-forest/20 bg-forest p-6 sm:p-7"
-                    role="list"
-                  >
-                    {[
-                      "Harga paket website (sudah termasuk desain custom & revisi)",
-                      "Biaya domain per tahun (.com, .id, .my.id, dll)",
-                      "Hosting: Gratis untuk Landing Page & UMKM",
-                      "Opsional CMS kelola artikel/konten sendiri (+Rp500rb)",
-                      "Potongan referral Rp50.000 jika punya kode",
-                    ].map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-body-sm font-medium text-white/90"
-                      >
-                        <span className="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-sharp bg-lime">
-                          <Check className="h-3 w-3 text-forest" strokeWidth={3.5} />
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
             </div>

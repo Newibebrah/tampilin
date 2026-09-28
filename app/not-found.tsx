@@ -22,7 +22,7 @@ export default function NotFound() {
       <div className="max-w-3xl">
         <p className="eyebrow-lime">Error 404</p>
 
-        <h1 className="mt-7 text-display-md text-ink">
+        <h1 className="mt-7 display-md">
           Halaman ini tidak
           <br />
           pernah ada.

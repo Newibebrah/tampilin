@@ -142,7 +142,7 @@ export function Navbar() {
             </button>
 
             <Link
-              href={waLink("Halo tampilin.online, saya mau tanya soal website.")}
+              href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="button-primary hidden lg:inline-flex"
@@ -204,7 +204,7 @@ export function Navbar() {
                   </div>
                   <div className="pt-4 border-t border-border">
                     <Link
-                      href={waLink("Halo tampilin.online, saya mau tanya soal website.")}
+                      href={waLink()}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="button-primary w-full justify-center"

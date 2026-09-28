@@ -7,9 +7,12 @@ export function cn(...inputs: ClassValue[]) {
 
 export const WHATSAPP_NUMBER = "6281234567890";
 
-export function waLink(message?: string) {
+export const WHATSAPP_DEFAULT_MESSAGE =
+  "Halo tampilin.online, saya mau tanya soal website.";
+
+export function waLink(message: string = WHATSAPP_DEFAULT_MESSAGE) {
   const base = `https://wa.me/${WHATSAPP_NUMBER}`;
-  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+  return `${base}?text=${encodeURIComponent(message)}`;
 }
 
 export function formatIdr(value: number) {

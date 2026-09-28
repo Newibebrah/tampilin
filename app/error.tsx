@@ -20,7 +20,7 @@ export default function Error({
       <div className="max-w-2xl">
         <p className="eyebrow-lime">Terjadi kesalahan</p>
 
-        <h1 className="mt-7 text-display-md text-ink">
+        <h1 className="mt-7 display-md">
           Ada yang tidak
           <br />
           beres di sini.
