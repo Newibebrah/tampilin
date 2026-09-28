@@ -1,10 +1,12 @@
 "use client";
 
-import { ArrowUpRight, Check, Clock3, MessageCircle, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Calculator, Check, Clock3, MessageCircle, Sparkles } from "lucide-react";
 import { cn, formatIdr, waLink } from "@/lib/utils";
 import { SITE } from "@/content/site";
 import { PAKET, HOSTING, ADDON } from "@/lib/data";
 import { SectionLabel } from "@/components/SectionLabel";
+import { CalculatorModal } from "@/components/CalculatorModal";
 
 function getHostingForPaket(paketId: string) {
   return HOSTING.filter((h) => h.paket.includes(paketId));
@@ -15,6 +17,18 @@ function getAddonsForPaket(paketId: string) {
 }
 
 export default function KatalogPage() {
+  const [calculatorOpen, setCalculatorOpen] = useState(false);
+  const [selectedPaket, setSelectedPaket] = useState<"landing" | "umkm" | "ecommerce" | null>(null);
+
+  const handleOpenCalculator = (paketId: "landing" | "umkm" | "ecommerce") => {
+    setSelectedPaket(paketId);
+    setCalculatorOpen(true);
+  };
+
+  const handleCloseCalculator = () => {
+    setCalculatorOpen(false);
+    setSelectedPaket(null);
+  };
   return (
     <main>
       <section className="border-b border-line bg-canvas">
@@ -97,17 +111,27 @@ export default function KatalogPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 flex">
+                <div className="mt-6 flex gap-3">
+                  <button
+                    onClick={() => handleOpenCalculator(paket.id as "landing" | "umkm" | "ecommerce")}
+                    className={cn(
+                      "flex-1 inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-colors duration-150",
+                      isPopular ? "bg-accent text-white hover:bg-accent-deep" : "bg-ink text-white hover:bg-deep"
+                    )}
+                  >
+                    <Calculator className="h-4 w-4" />
+                    Simulasi Harga
+                  </button>
                   <a
                     href={waLink(`Halo ${SITE.name}, saya pilih paket *${paket.nama}* (Rp${paket.hargaDiskon.toLocaleString("id-ID")}).`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cn(
-                      "w-full inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-colors duration-150",
-                      isPopular ? "bg-accent text-white hover:bg-accent-deep" : "bg-ink text-white hover:bg-deep"
+                      "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-colors duration-150",
+                      isPopular ? "border-2 border-lime text-lime hover:bg-lime/10" : "border-2 border-accent text-accent hover:bg-accent/10"
                     )}
                   >
-                    <MessageCircle className="h-4 w-4" />
+                    <ArrowUpRight className="h-4 w-4" />
                     Pesan
                   </a>
                 </div>
@@ -132,6 +156,12 @@ export default function KatalogPage() {
           </a>
         </div>
       </section>
+
+      <CalculatorModal
+        isOpen={calculatorOpen}
+        onClose={handleCloseCalculator}
+        initialPaket={selectedPaket || undefined}
+      />
     </main>
   );
 }
