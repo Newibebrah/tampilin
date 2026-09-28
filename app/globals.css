@@ -197,7 +197,22 @@
   }
 
   .button-primary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp bg-flame px-8 py-4 text-body font-semibold text-paper transition-all duration-micro hover:bg-flame-hover hover:gap-3 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper dark:focus-visible:ring-offset-ink;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp bg-flame px-8 py-4 text-body font-semibold transition-all duration-micro hover:-translate-y-0.5 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper dark:focus-visible:ring-offset-ink;
+    color: #111111;
+    background-image: linear-gradient(var(--color-forest), var(--color-forest));
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0% 100%;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    transition: background-size 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .button-primary:hover {
+    background-size: 100% 100%;
+    color: var(--color-lime);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 6px 16px rgba(17, 17, 17, 0.12);
   }
 
   .button-primary-lg {
@@ -209,7 +224,20 @@
   }
 
   .button-secondary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp border border-border-strong bg-transparent px-8 py-4 text-body font-semibold text-ink transition-all duration-micro hover:border-ink hover:bg-paper-subtle active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper dark:focus-visible:ring-offset-ink;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp border border-border-strong bg-transparent px-8 py-4 text-body font-semibold text-ink transition-all duration-micro hover:-translate-y-0.5 hover:border-forest active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper dark:focus-visible:ring-offset-ink;
+    background-image: linear-gradient(var(--color-forest), var(--color-forest));
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0% 100%;
+    transition: background-size 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      color 150ms ease, border-color 150ms ease, transform 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .button-secondary:hover {
+    background-size: 100% 100%;
+    color: var(--color-paper);
+    box-shadow: 0 6px 16px rgba(17, 17, 17, 0.1);
   }
 
   .button-secondary-lg {
@@ -221,11 +249,37 @@
   }
 
   .button-ghost {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp px-6 py-3 text-body font-medium text-ink-muted transition-all duration-micro hover:text-ink hover:bg-paper-subtle active:scale-[0.98];
+    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp px-6 py-3 text-body font-medium text-ink-muted transition-all duration-micro hover:-translate-y-0.5 hover:text-ink active:scale-[0.98];
+    background-image: linear-gradient(var(--color-paper-subtle), var(--color-paper-subtle));
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0% 100%;
+    transition: background-size 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      color 150ms ease, transform 150ms ease;
+  }
+
+  .button-ghost:hover {
+    background-size: 100% 100%;
   }
 
   .button-icon {
-    @apply grid h-12 w-12 place-items-center rounded-soft border border-border bg-paper/80 backdrop-blur-md text-ink transition-all duration-micro hover:border-border-strong hover:bg-paper-subtle hover:shadow-layer-1 active:scale-[0.95];
+    @apply grid h-12 w-12 place-items-center rounded-soft border border-border bg-paper/80 backdrop-blur-md text-ink transition-all duration-micro hover:-translate-y-0.5 hover:border-flame hover:text-flame-hover hover:shadow-layer-2 active:scale-[0.95];
+  }
+
+  .button-icon:hover svg {
+    transform: rotate(15deg);
+  }
+
+  .button-primary svg,
+  .button-secondary svg,
+  .button-ghost svg {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .button-primary:hover svg,
+  .button-secondary:hover svg,
+  .button-ghost:hover svg {
+    transform: translate(2px, -2px);
   }
 
   .tag {
