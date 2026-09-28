@@ -1,136 +1,125 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ArrowLeft, ArrowRight, MessageSquare, Palette, PenTool, Rocket } from "lucide-react";
 
-interface HorizontalScrollProps {
-  children: React.ReactNode;
-  className?: string;
-  snap?: "start" | "center" | "end";
-  gap?: number;
-}
+const STEP_ICONS = {
+  discover: MessageSquare,
+  sketsa: PenTool,
+  desain: Palette,
+  "go-live": Rocket,
+} as const;
+
+
+
+
 
 export function HorizontalScroll({
   children,
   className,
-  snap = "start",
   gap = 24,
-}: HorizontalScrollProps) {
+}: {
+  children: React.ReactNode;
+  className?: string;
+  gap?: number;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [edges, setEdges] = useState({ left: false, right: true });
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const el = containerRef.current;
+    if (!el) return;
 
-    const checkScroll = () => {
-      setCanScrollLeft(container.scrollLeft > 10);
-      setCanScrollRight(container.scrollLeft + container.clientWidth < container.scrollWidth - 10);
+    const update = () => {
+      setEdges({
+        left: el.scrollLeft > 10,
+        right: el.scrollLeft + el.clientWidth < el.scrollWidth - 10,
+      });
     };
 
-    checkScroll();
-    container.addEventListener("scroll", checkScroll, { passive: true });
-    window.addEventListener("resize", checkScroll);
-
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
     return () => {
-      container.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("resize", checkScroll);
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
     };
   }, []);
 
-  const scrollLeft = () => {
-    containerRef.current?.scrollBy({ left: -300, behavior: "smooth" });
-  };
-
-  const scrollRight = () => {
-    containerRef.current?.scrollBy({ left: 300, behavior: "smooth" });
+  const nudge = (dir: 1 | -1) => {
+    containerRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
   };
 
   return (
     <div className={cn("relative", className)}>
       <div
         ref={containerRef}
-        className={cn(
-          "flex overflow-x-auto scrollbar-hide pb-4 -mb-4",
-          "scroll-snap-x"
-        )}
-        style={{ scrollSnapType: "x mandatory", gap: `${gap}px` }}
+        className="scrollbar-hide -mb-4 flex snap-x snap-mandatory overflow-x-auto pb-4"
+        style={{ gap: `${gap}px` }}
       >
-        {React.Children.map(children, (child) =>
-          React.isValidElement(child)
-            ? React.cloneElement(child as React.ReactElement<any>, {
-                className: cn(
-                  "flex-shrink-0 scroll-snap-start",
-                  (child.props.className || "")
-                ),
-                style: {
-                  ...(child.props.style || {}),
-                  scrollSnapAlign: snap,
-                  minWidth: "300px",
-                  maxWidth: "400px",
-                },
-              })
-            : child
-        )}
+        {children}
       </div>
 
-      {(canScrollLeft || canScrollRight) && (
-        <div className="absolute inset-y-0 left-0 right-0 pointer-events-none">
-          {canScrollLeft && (
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-16 h-16 -ml-8 rounded-full bg-paper/80 backdrop-blur-md border border-border flex items-center justify-center shadow-layer-2 pointer-events-auto cursor-pointer hover:bg-paper-subtle transition-colors" onClick={scrollLeft} aria-label="Scroll left">
-              <svg className="h-5 w-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </div>
-          )}
-          {canScrollRight && (
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-16 h-16 -mr-8 rounded-full bg-paper/80 backdrop-blur-md border border-border flex items-center justify-center shadow-layer-2 pointer-events-auto cursor-pointer hover:bg-paper-subtle transition-colors" onClick={scrollRight} aria-label="Scroll right">
-              <svg className="h-5 w-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          )}
-        </div>
-      )}
+      <div className="mt-2 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => nudge(-1)}
+          disabled={!edges.left}
+          className="grid h-11 w-11 place-items-center rounded-icon border border-border bg-paper text-ink transition-all duration-micro hover:border-flame hover:text-flame disabled:pointer-events-none disabled:opacity-30"
+          aria-label="Geser ke kiri"
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={() => nudge(1)}
+          disabled={!edges.right}
+          className="grid h-11 w-11 place-items-center rounded-icon border border-border bg-paper text-ink transition-all duration-micro hover:border-flame hover:text-flame disabled:pointer-events-none disabled:opacity-30"
+          aria-label="Geser ke kanan"
+        >
+          <ArrowRight className="h-4 w-4" />
+        </button>
+        <p className="ml-2 mono-xs uppercase tracking-[0.14em] text-ink-subtle">
+          Geser untuk lihat semua langkah
+        </p>
+      </div>
     </div>
   );
 }
 
-interface TimelineStepProps {
-  step: {
-    no: string;
-    title: string;
-    body: string;
-    duration: string;
-    icon?: React.ReactNode;
-  };
-  index: number;
+export interface TimelineStepData {
+  id: string;
+  no: string;
+  title: string;
+  body: string;
+  duration: string;
 }
 
-export function TimelineStep({ step, index }: TimelineStepProps) {
+export function TimelineStep({ step, index }: { step: TimelineStepData; index: number }) {
+  const Icon = STEP_ICONS[step.id as keyof typeof STEP_ICONS] ?? PenTool;
+
   return (
-    <motion.div
-      className="flex flex-col gap-4 p-6 border border-border rounded-xl bg-paper/50 backdrop-blur-sm min-w-[320px] max-w-[380px]"
-      initial={{ opacity: 0, x: 30 }}
+    <motion.article
+      className="flex w-[300px] shrink-0 snap-start flex-col rounded-card border border-border bg-paper-subtle p-7 transition-all duration-standard hover:-translate-y-1 hover:border-flame hover:bg-paper hover:shadow-layer-2 sm:w-[340px]"
+      initial={{ opacity: 0, x: 24 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.45, delay: index * 0.08 }}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="grid h-12 w-12 place-items-center rounded-xl bg-flame/10 text-flame font-display font-bold text-xl">
-            {step.no}
-          </div>
-          <div>
-            <p className="mono-xs text-flame">{step.duration}</p>
-            <h3 className="heading-sm mt-1">{step.title}</h3>
-          </div>
-        </div>
+      <div className="flex items-start justify-between">
+        <span className="grid h-14 w-14 place-items-center rounded-icon bg-flame/10 text-flame">
+          <Icon className="h-6 w-6" strokeWidth={2} />
+        </span>
+        <span className="font-display text-3xl font-extrabold leading-none tracking-[-0.04em] text-ink/10">
+          {step.no}
+        </span>
       </div>
-      <p className="body-sm text-ink-muted ml-16">{step.body}</p>
-    </motion.div>
+
+      <p className="mono-xs mt-6 uppercase tracking-[0.14em] text-flame">{step.duration}</p>
+      <h3 className="heading-md mt-2 text-ink">{step.title}</h3>
+      <p className="body-sm mt-3 text-ink-muted">{step.body}</p>
+    </motion.article>
   );
 }

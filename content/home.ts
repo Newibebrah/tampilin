@@ -40,37 +40,6 @@ export interface MenuItem {
   price: string;
 }
 
-export const LAYANAN_MENU: MenuItem[] = [
-  {
-    no: "01",
-    name: "Landing Page",
-    category: "Personal",
-    desc: "Satu halaman fokus konversi buat profil, kelas, atau promo.",
-    price: "Rp1jt",
-  },
-  {
-    no: "02",
-    name: "Company Profile",
-    category: "UMKM",
-    desc: "Ceritain brand + produk dalam beberapa halaman yang rapi.",
-    price: "Rp1,75jt",
-  },
-  {
-    no: "03",
-    name: "E-Commerce",
-    category: "Toko Online",
-    desc: "Katalog produk, keranjang, checkout lewat WhatsApp.",
-    price: "Rp2jt",
-  },
-  {
-    no: "04",
-    name: "Custom & Backend",
-    category: "Bebas",
-    desc: "Booking, dashboard, API, apapun itu — dibahas dulu.",
-    price: "Rp3jt+",
-  },
-];
-
 export interface ProsesStep {
   id: string;
   no: string;
