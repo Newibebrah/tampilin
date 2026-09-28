@@ -120,7 +120,7 @@ export default function LayananPage() {
               href={waLink("Halo tampilin.online, saya punya kebutuhan website custom.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="button-secondary shrink-0 self-start lg:self-auto"
+              className="button-secondary w-full shrink-0 sm:w-auto lg:self-auto"
             >
               Konsultasi custom
               <ArrowUpRight className="h-5 w-5" />
@@ -146,7 +146,7 @@ export default function LayananPage() {
           </div>
 
           <div>
-            <Link href="/harga" className="button-lime button-lime-lg">
+            <Link href="/harga" className="button-lime button-lime-lg w-full justify-center sm:w-auto">
               <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-icon bg-forest text-lime">
                 <Calculator className="h-5 w-5" strokeWidth={2} />
               </span>
