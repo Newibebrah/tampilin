@@ -51,7 +51,7 @@ const config: Config = {
         "body-lg": ["1.1875rem", { lineHeight: "1.65", letterSpacing: "-0.01em", fontWeight: "500" }],
         "body": ["1rem", { lineHeight: "1.7", letterSpacing: "0", fontWeight: "450" }],
         "body-sm": ["0.875rem", { lineHeight: "1.6", letterSpacing: "0" }],
-"caption": ["0.8125rem", { lineHeight: "1.5", letterSpacing: "0.01em" }],
+"caption": ["0.875rem", { lineHeight: "1.5", letterSpacing: "0.01em" }],
 "mono-sm": ["0.75rem", { lineHeight: "1.5", letterSpacing: "0.02em" }],
 "mono-xs": ["0.6875rem", { lineHeight: "1.5", letterSpacing: "0.06em" }],
       },
