@@ -140,7 +140,7 @@
   }
 
   .lede {
-    @apply font-sans text-body-lg leading-relaxed tracking-[-0.01em] text-ink-muted;
+    @apply font-sans text-lg sm:text-xl md:text-2xl leading-relaxed tracking-[-0.01em] text-ink-muted;
   }
 
   .body {
