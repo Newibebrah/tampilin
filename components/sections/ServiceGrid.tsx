@@ -54,7 +54,7 @@ export function ServiceCard({
   return (
     <motion.article
       className={cn(
-        "relative flex h-full flex-col rounded-card-lg border p-8 transition-all duration-standard",
+        "relative flex h-full flex-col rounded-card-lg border p-6 transition-all duration-standard md:p-8",
         featured
           ? "border-ink bg-ink text-paper shadow-glow-flame lg:-my-3 lg:py-11"
           : "border-border bg-paper-subtle hover:-translate-y-1 hover:border-flame hover:bg-paper hover:shadow-layer-2"

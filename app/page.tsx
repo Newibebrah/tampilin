@@ -55,8 +55,8 @@ export default function HomePage() {
       {/* HERO — Editorial Split */}
       <section className="relative overflow-hidden border-b border-border bg-paper">
         <MeshGradient className="opacity-60" />
-        <div className="section-shell section-pad relative grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-12">
-          <div className="relative z-10 lg:col-span-5">
+        <div className="section-shell section-pad relative flex flex-col items-center gap-14 text-center lg:grid lg:grid-cols-12 lg:items-center lg:gap-12 lg:text-left">
+          <div className="relative z-10 w-full max-w-3xl lg:col-span-5 lg:max-w-none">
             <Badge tone="flame" dot pulse>
               Jasa pembuatan website · {SITE.city}
             </Badge>
@@ -75,8 +75,8 @@ export default function HomePage() {
               dengan website yang jelas, cepat, dan siap mengubah pengunjung menjadi pelanggan.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href="/layanan" className="button-primary button-primary-lg">
+            <div className="mt-9 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+              <Link href="/layanan" className="button-primary button-primary-lg w-full sm:w-auto">
                 Lihat paket & harga
                 <ArrowUpRight className="h-5 w-5" />
               </Link>
@@ -84,14 +84,14 @@ export default function HomePage() {
                 href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button-secondary button-secondary-lg"
+                className="button-secondary button-secondary-lg w-full sm:w-auto"
               >
                 Konsultasi gratis
                 <ArrowUpRight className="h-5 w-5" />
               </a>
             </div>
 
-            <p className="mt-8 flex items-center gap-3 body-sm font-medium text-ink-muted">
+            <p className="mt-8 flex items-center justify-center gap-3 body-sm font-medium text-ink-muted lg:justify-start">
               <span className="grid h-7 w-7 flex-shrink-0 place-items-center rounded-full bg-lime/30 text-forest">
                 <Check className="h-4 w-4" strokeWidth={3} />
               </span>
@@ -99,9 +99,9 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="relative z-10 lg:col-span-7">
+          <div className="relative z-10 w-full mx-auto max-w-xl lg:col-span-7 lg:mx-0 lg:max-w-none">
             <motion.div
-              className="relative rounded-card-lg border border-border bg-paper p-8 shadow-layer-3"
+              className="relative rounded-card-lg border border-border bg-paper p-6 shadow-layer-3 md:p-8"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}

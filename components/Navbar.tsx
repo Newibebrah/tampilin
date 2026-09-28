@@ -62,7 +62,7 @@ export function Navbar() {
           />
         </div>
 
-        <div className="section-shell flex h-[4.5rem] items-center justify-between">
+        <div className="section-shell flex h-16 items-center justify-between lg:h-[4.5rem]">
           <Link
             href="/"
             className="flex items-center gap-2.5 shrink-0"
@@ -124,19 +124,19 @@ export function Navbar() {
                   <Menu className="h-5 w-5" />
                 </button>
               </DrawerTrigger>
-              <DrawerContent className="bg-paper">
+              <DrawerContent className="h-[100dvh] rounded-none p-0 bg-paper">
                 <DrawerHeader className="p-6 border-b border-border">
                   <DrawerTitle className="text-heading-lg font-semibold">
                     Navigasi
                   </DrawerTitle>
                 </DrawerHeader>
-                <nav className="p-6 space-y-1" aria-label="Navigasi mobile">
+                <nav className="flex h-full flex-col overflow-y-auto p-6" aria-label="Navigasi mobile">
                   {NAV_LINKS.map((link, index) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={cn(
-                        "flex items-center justify-between gap-4 py-4 text-heading-sm font-semibold text-ink transition-colors duration-micro hover:text-flame-hover",
+                        "flex min-h-14 items-center justify-between gap-4 py-3 text-heading-sm font-semibold text-ink transition-colors duration-micro hover:text-flame-hover",
                         pathname === link.href && "text-flame-hover"
                       )}
                     >
@@ -145,7 +145,7 @@ export function Navbar() {
                       <ArrowUpRight className="h-5 w-5 text-ink-muted" />
                     </Link>
                   ))}
-                  <div className="pt-4 border-t border-border">
+                  <div className="mt-auto pt-4 border-t border-border">
                     <Link href="/harga" className="button-primary w-full justify-center">
                       <Sparkles className="h-4 w-4" />
                       <span>Mulai proyek</span>
