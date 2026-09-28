@@ -296,11 +296,11 @@ export default function HargaCalculator({
 
         <div
           className={cn(
-            "mt-10 grid gap-8 lg:items-start",
-            currentStep === "summary" ? "lg:grid-cols-1" : "lg:grid-cols-[1fr_360px]"
+            "mt-10 grid grid-cols-1 gap-8 lg:items-start",
+            currentStep === "summary" ? "lg:grid-cols-1" : "lg:grid-cols-[minmax(0,1fr)_360px]"
           )}
         >
-          <div>
+          <div className="min-w-0">
             <nav
               aria-label="Langkah simulasi harga"
               className="flex gap-1.5 overflow-x-auto scrollbar-hide border-b border-border pb-4"
@@ -421,7 +421,7 @@ export default function HargaCalculator({
               </AnimatePresence>
             </div>
 
-            <div className="mt-8 flex items-center gap-3 border-t border-border pt-6">
+            <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-6">
               {!isFirstStep && (
                 <Button variant="secondary" onClick={prevStep}>
                   <ChevronLeft className="mr-1 h-4 w-4" /> Kembali
@@ -444,7 +444,7 @@ export default function HargaCalculator({
           </div>
 
           {currentStep !== "summary" && (
-            <aside className="hidden lg:block">
+            <aside className="hidden min-w-0 lg:block">
               <div className="sticky top-24">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
