@@ -183,7 +183,7 @@
   }
 
   .button-primary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp bg-flame px-8 py-4 text-body font-semibold transition-all duration-micro hover:-translate-y-0.5 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-soft bg-flame px-8 py-4 text-body font-semibold transition-all duration-micro hover:-translate-y-0.5 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
     color: #111111;
     --btn-wipe: var(--color-forest);
     --btn-wipe-ink: var(--color-lime);
@@ -232,7 +232,7 @@
   }
 
   .button-secondary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp border border-border-strong bg-transparent px-8 py-4 text-body font-semibold text-ink transition-all duration-micro hover:-translate-y-0.5 hover:border-forest active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-soft border border-border-strong bg-transparent px-8 py-4 text-body font-semibold text-ink transition-all duration-micro hover:-translate-y-0.5 hover:border-forest active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
     background-image: linear-gradient(var(--color-forest), var(--color-forest));
     background-repeat: no-repeat;
     background-position: left center;
@@ -257,7 +257,7 @@
   }
 
   .button-ghost {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-sharp px-6 py-3 text-body font-medium text-ink-muted transition-all duration-micro hover:-translate-y-0.5 hover:text-ink active:scale-[0.98];
+    @apply relative inline-flex items-center justify-center gap-2 rounded-soft px-6 py-3 text-body font-medium text-ink-muted transition-all duration-micro hover:-translate-y-0.5 hover:text-ink active:scale-[0.98];
     background-image: linear-gradient(var(--color-paper-subtle), var(--color-paper-subtle));
     background-repeat: no-repeat;
     background-position: left center;

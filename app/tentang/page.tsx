@@ -1,5 +1,6 @@
 import { ArrowUpRight, Check, Clock3, Coffee, MapPin } from "lucide-react";
-import { SectionLabel } from "@/components/SectionLabel";
+import { Badge } from "@/components/Badge";
+import { IconContainer } from "@/components/IconContainer";
 import { SITE } from "@/content/site";
 import { waLink } from "@/lib/utils";
 
@@ -22,17 +23,31 @@ const VALUES = [
   { no: "04", title: "Jujur", desc: "Kalau belum bisa, kami bilang. Kalau bisa, kami kerjakan dengan komitmen yang jelas." },
 ] as const;
 
+const BEHIND = [
+  { icon: Check, title: "Desain & kode", desc: "Satu orang mengoordinasikan dari brief sampai live agar hasil dan komunikasi tetap konsisten." },
+  { icon: MapPin, title: "Remote, Indonesia", desc: "Kami bekerja dengan klien di berbagai kota. Komunikasi bisa lewat WhatsApp atau video call." },
+  { icon: Coffee, title: "Detail yang terasa", desc: "Kami memusatkan perhatian pada tipografi, jarak, dan alur agar website terasa tenang saat digunakan." },
+] as const;
+
 export default function TentangPage() {
   return (
     <div>
+      {/* HEADER — Editorial Split */}
       <section className="border-b border-border bg-paper">
-        <div className="section-shell grid gap-12 py-20 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:py-32">
-          <div>
-            <SectionLabel no="03" label="Tentang kami" />
-            <h1 className="display-md mt-7 max-w-3xl">Website yang dibuat dengan <span className="text-flame">pemahaman</span> dan niat.</h1>
+        <div className="section-shell section-pad grid gap-12 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
+            <Badge tone="flame" dot>
+              Tentang kami
+            </Badge>
+            <h1 className="display-lg mt-7 max-w-3xl text-balance">
+              Website yang dibuat dengan <span className="text-flame">pemahaman</span> dan niat.
+            </h1>
           </div>
-          <div>
-            <p className="lede max-w-xl">{SITE.tagline} Kami adalah tim kecil yang fokus membangun website custom untuk personal brand, UMKM, dan toko online.</p>
+          <div className="lg:col-span-5">
+            <p className="lede max-w-xl">
+              {SITE.tagline} Kami adalah tim kecil yang fokus membangun website custom untuk
+              personal brand, UMKM, dan toko online.
+            </p>
             <a
               href={waLink("Halo tampilin.online, saya ingin tahu lebih lanjut tentang tim Anda.")}
               target="_blank"
@@ -40,88 +55,116 @@ export default function TentangPage() {
               className="button-secondary mt-7"
             >
               Ngobrol dengan kami
-              <ArrowUpRight className="h-4 w-4" />
+              <ArrowUpRight className="h-5 w-5" />
             </a>
           </div>
         </div>
       </section>
 
-      <section className="section-shell py-16 sm:py-24">
-        <div className="grid grid-cols-2 border-y border-border md:grid-cols-4">
-          {FACTS.map((fact, index) => (
-            <div key={fact.label} className={`px-1 py-7 sm:px-6 ${index % 2 === 0 ? "border-r border-border" : ""} ${index < 2 ? "border-b border-border md:border-b-0" : ""} md:border-r md:last:border-r-0`}>
-              <p className="text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">{fact.value}</p>
-              <p className="mt-2 text-xs leading-5 text-ink-muted">{fact.label}</p>
+      {/* ANGKA — Number Highlight */}
+      <section className="section-shell py-14 sm:py-16">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {FACTS.map((fact) => (
+            <div
+              key={fact.label}
+              className="rounded-card border border-border bg-paper-subtle p-6"
+            >
+              <p className="font-display text-3xl font-extrabold tracking-[-0.04em] text-ink sm:text-4xl">
+                {fact.value}
+              </p>
+              <p className="mt-2 text-caption leading-5 text-ink-muted">{fact.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="border-y border-border bg-paper">
-        <div className="section-shell py-24 sm:py-32">
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-            <div>
-              <SectionLabel no="04" label="Cara kami bekerja" />
-              <h2 className="display-sm mt-6 max-w-md">Nilai yang hadir di setiap halaman dan setiap percakapan.</h2>
-              <p className="lede mt-6 max-w-md">Karena website yang baik bukan cuma soal visual. Ia harus mencerminkan apa yang bisnis Anda butuhkan.</p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {VALUES.map((value) => (
-                <article key={value.no} className="rounded-2xl border border-border bg-paper p-7">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs text-ink-muted">{value.no}</span>
-                    <span className="h-2 w-2 rounded-full bg-flame" />
-                  </div>
-                  <h3 className="mt-8 text-xl font-semibold tracking-[-0.03em] text-ink">{value.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-ink-muted">{value.desc}</p>
-                </article>
-              ))}
-            </div>
+      {/* NILAI — Bento 2x2 */}
+      <section className="border-y border-border bg-paper-subtle section-pad">
+        <div className="section-shell grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <Badge tone="flame" dot>
+              Cara kami bekerja
+            </Badge>
+            <h2 className="display-md mt-6 text-balance">
+              Nilai yang hadir di setiap halaman dan setiap percakapan.
+            </h2>
+            <p className="lede mt-6">
+              Karena website yang baik bukan cuma soal visual. Ia harus mencerminkan apa
+              yang bisnis Anda butuhkan.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+            {VALUES.map((value) => (
+              <article
+                key={value.no}
+                className="rounded-card-lg border border-border bg-paper p-7 transition-all duration-standard hover:-translate-y-1 hover:border-flame hover:shadow-layer-2"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="mono-xs text-flame">{value.no}</span>
+                  <span className="h-2 w-2 rounded-full bg-lime" />
+                </div>
+                <h3 className="heading-md mt-7 text-ink">{value.title}</h3>
+                <p className="body-sm mt-3 text-ink-muted">{value.desc}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section-shell py-24 sm:py-32">
-        <div className="grid gap-10 rounded-3xl bg-forest p-8 text-paper sm:p-12 lg:grid-cols-[0.85fr_1.15fr] lg:p-16">
-          <div>
-            <p className="eyebrow text-lime">Di balik layar</p>
-            <h2 className="mt-6 text-3xl font-semibold leading-tight tracking-[-0.04em] sm:text-4xl">Satu tim kecil, proses yang tetap besar.</h2>
-            <p className="mt-6 max-w-md text-body-sm leading-7 text-paper/70">Tidak ada serah-terima yang membuat Anda kehilangan konteks. Dari brief sampai go-live, Anda tahu apa yang sedang dikerjakan.</p>
-          </div>
-          <div className="space-y-7">
-            {[
-              { icon: Check, title: "Desain & kode", desc: "Satu orang mengoordinasikan dari brief sampai live agar hasil dan komunikasi tetap konsisten." },
-              { icon: MapPin, title: "Remote, Indonesia", desc: "Kami bekerja dengan klien di berbagai kota. Komunikasi bisa lewat WhatsApp atau video call." },
-              { icon: Coffee, title: "Detail yang terasa", desc: "Kami memusatkan perhatian pada tipografi, jarak, dan alur agar website terasa tenang saat digunakan." },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="flex gap-4">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-paper/10 text-lime"><Icon className="h-4 w-4" /></span>
-                <div>
-                  <h3 className="text-base font-semibold">{title}</h3>
-                  <p className="mt-1 text-body-sm leading-6 text-paper/70">{desc}</p>
-                </div>
-              </div>
-            ))}
+      {/* DI BALIK LAYAR — Full-Bleed Forest */}
+      <section className="bg-forest section-pad">
+        <div className="section-shell grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <Badge tone="lime" dot>
+              Di balik layar
+            </Badge>
+            <h2 className="display-md mt-6 text-balance text-paper">
+              Satu tim kecil, proses yang tetap besar.
+            </h2>
+            <p className="body-lg mt-6 max-w-md text-paper/70">
+              Tidak ada serah-terima yang membuat Anda kehilangan konteks. Dari brief sampai
+              go-live, Anda tahu apa yang sedang dikerjakan.
+            </p>
             <a
               href={waLink("Halo tampilin.online, saya mau berkenalan dengan tim tampilin.online.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 pt-2 text-sm font-semibold text-lime transition-colors duration-150 hover:text-paper"
+              className="mt-7 inline-flex items-center gap-2 body-sm font-bold text-lime transition-colors duration-micro hover:text-paper"
             >
               Kenalan lebih jauh
               <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
+
+          <div className="space-y-4 lg:col-span-7">
+            {BEHIND.map(({ icon: Icon, title, desc }) => (
+              <div
+                key={title}
+                className="flex gap-5 rounded-card border border-paper/10 bg-paper/[0.04] p-6 transition-all duration-standard hover:border-lime/40 hover:bg-paper/[0.08]"
+              >
+                <IconContainer tone="lime" size="md">
+                  <Icon strokeWidth={2} />
+                </IconContainer>
+                <div>
+                  <h3 className="heading-sm text-paper">{title}</h3>
+                  <p className="body-sm mt-2 text-paper/70">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="border-t border-border bg-paper-subtle">
-        <div className="section-shell flex flex-col gap-6 py-14 sm:flex-row sm:items-center sm:justify-between sm:py-16">
-          <div>
-            <p className="eyebrow">Lokasi & waktu</p>
-            <p className="mt-3 text-sm text-ink-muted">{SITE.city} · {SITE.hours}</p>
-          </div>
-          <span className="flex items-center gap-2 text-sm text-ink-muted"><Clock3 className="h-4 w-4" /> Respons chat biasanya di bawah 1 jam</span>
+      {/* LOKASI — Forest continuation */}
+      <section className="bg-forest pb-20">
+        <div className="section-shell flex flex-col gap-4 border-t border-paper/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="body-sm text-paper/60">
+            {SITE.city} · {SITE.hours}
+          </p>
+          <span className="flex items-center gap-2 body-sm text-paper/60">
+            <Clock3 className="h-4 w-4 text-lime" strokeWidth={2} />
+            Respons chat biasanya di bawah 1 jam
+          </span>
         </div>
       </section>
     </div>

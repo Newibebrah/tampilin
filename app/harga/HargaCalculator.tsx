@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import { Badge } from "@/components/Badge";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, Check, AlertCircle, MessageCircle,
@@ -13,7 +14,6 @@ import {
   type PaketId, type DomainId, type HostingId, type AddonId,
 } from "@/lib/data";
 import { SITE } from "@/content/site";
-import { SectionLabel } from "@/components/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { NumberFlow } from "@/components/sections/AnimatedNumber";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/Drawer";
@@ -281,7 +281,11 @@ export default function HargaCalculator({
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <SectionLabel no="03" label="Harga" className="inline-flex justify-center" />
+          <div className="flex justify-center">
+            <Badge tone="flame" dot pulse>
+              Harga
+            </Badge>
+          </div>
           <h1 className="display-lg mt-6 text-balance">
             Simulasi Harga <span className="text-flame">Transparan</span>
           </h1>
@@ -395,7 +399,7 @@ export default function HargaCalculator({
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="mx-auto w-full max-w-2xl"
                     >
-                      <div className="rounded-sharp border border-border bg-paper p-6 shadow-layer-1 sm:p-8">
+                      <div className="rounded-card-lg border border-border bg-paper p-6 shadow-layer-1 sm:p-8">
                         <div className="mb-6 flex items-center gap-3 border-b border-border pb-5">
                           <span className="grid h-11 w-11 place-items-center rounded-soft bg-flame/10 text-flame">
                             <Check className="h-5 w-5" />
@@ -447,7 +451,7 @@ export default function HargaCalculator({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 }}
                   aria-live="polite"
-                  className="rounded-sharp border border-border bg-paper/80 p-6 shadow-layer-2 backdrop-blur-[12px]"
+                  className="rounded-card-lg border border-border bg-paper p-6 shadow-layer-2"
                 >
                   <h2 className="heading-sm mb-5">Ringkasan</h2>
                   {summaryBody}
@@ -541,7 +545,7 @@ function PaketStep({
               onClick={() => onSelect(p.id as PaketId)}
               disabled={locked && !isSelected}
               className={cn(
-                "relative rounded-sharp border p-6 text-left transition-all duration-standard",
+                "relative rounded-card border p-6 text-left transition-all duration-standard",
                 isSelected
                   ? "border-flame bg-flame/5 shadow-layer-1"
                   : "border-border bg-paper hover:border-flame/40 hover:shadow-layer-1"
@@ -551,7 +555,7 @@ function PaketStep({
                 <span
                   className={cn(
                     "grid h-11 w-11 place-items-center rounded-soft",
-                    isSelected ? "bg-flame text-paper" : "bg-paper-subtle text-ink"
+                    isSelected ? "bg-flame text-ink" : "bg-paper-subtle text-ink"
                   )}
                 >
                   <Icon className="h-5 w-5" />
@@ -569,7 +573,7 @@ function PaketStep({
                 </span>
               </div>
               {isSelected && (
-                <span className="absolute -right-2 -top-2 rounded-pill bg-flame px-2.5 py-1 text-[10px] font-semibold text-paper">
+                <span className="absolute -right-2 -top-2 rounded-pill bg-lime px-2.5 py-1 text-mono-xs font-bold uppercase tracking-[0.08em] text-forest">
                   Dipilih
                 </span>
               )}
