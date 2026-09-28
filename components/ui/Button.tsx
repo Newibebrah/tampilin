@@ -10,29 +10,30 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
+const VARIANT: Record<NonNullable<ButtonProps["variant"]>, string> = {
+  primary: "button-primary",
+  secondary: "button-secondary",
+  ghost: "button-ghost",
+  icon: "button-icon",
+};
+
+const SIZE_SUFFIX: Record<NonNullable<ButtonProps["size"]>, string> = {
+  sm: "-sm",
+  md: "",
+  lg: "-lg",
+};
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", asChild = false, children, ...props }, ref) => {
+  ({ className, variant = "primary", size = "md", asChild = false, children, type, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-
-    const baseStyles = "relative inline-flex items-center justify-center gap-2 font-semibold transition-all duration-micro active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:pointer-events-none disabled:opacity-50";
-
-    const variants = {
-      primary: "rounded-sharp bg-flame text-paper hover:bg-flame-hover hover:gap-3",
-      secondary: "rounded-sharp border border-border-strong bg-transparent text-ink hover:border-ink hover:bg-paper-subtle",
-      ghost: "rounded-sharp px-4 text-ink-muted hover:text-ink hover:bg-paper-subtle",
-      icon: "grid h-12 w-12 place-items-center rounded-soft border border-border bg-paper/80 backdrop-blur-md text-ink hover:border-border-strong hover:bg-paper-subtle hover:shadow-layer-1",
-    };
-
-    const sizes = {
-      sm: "px-6 py-3 text-body-sm",
-      md: "px-8 py-4 text-body",
-      lg: "px-10 py-5 text-body-lg",
-    };
+    const sized =
+      variant === "icon" || size === "md" ? VARIANT[variant] : `${VARIANT[variant]}${SIZE_SUFFIX[size]}`;
 
     return (
       <Comp
         ref={ref}
-        className={cn(baseStyles, variants[variant], sizes[size], className)}
+        {...(asChild ? {} : { type: type ?? "button" })}
+        className={cn(sized, className)}
         {...props}
       >
         {children}

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/geist/wght.css";
 import "@fontsource-variable/geist-mono/wght.css";
-import "@fontsource-variable/fraunces/standard.css";
+import "@fontsource-variable/plus-jakarta-sans/wght.css";
 import "./globals.css";
 import { SITE } from "@/content/site";
 import { Navbar } from "@/components/Navbar";

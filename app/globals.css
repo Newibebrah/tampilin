@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --font-geist: "Geist Variable", "Geist", system-ui, sans-serif;
-    --font-fraunces: "Fraunces Variable", "Fraunces", Georgia, serif;
+    --font-jakarta: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
     --font-mono: "Geist Mono Variable", "Geist Mono", "JetBrains Mono", monospace;
 
     --color-paper: #F5F1EA;
@@ -91,11 +91,15 @@
 
 @layer components {
   .section-shell {
-    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12 xl:px-16 2xl:px-24;
+    @apply mx-auto w-full max-w-[1200px] px-6 md:px-8 lg:px-12 xl:px-20;
   }
 
   .section-shell-wide {
-    @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12 xl:px-16 2xl:px-24;
+    @apply mx-auto w-full max-w-[1200px] px-6 md:px-8 lg:px-12 xl:px-20;
+  }
+
+  .section-pad {
+    @apply py-20 sm:py-28 lg:py-36;
   }
 
   .eyebrow {
