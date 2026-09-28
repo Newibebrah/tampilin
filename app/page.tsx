@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Calculator, Check, Globe2, Layers3, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowUpRight, Check, Globe2, Layers3, MessageCircle, Sparkles } from "lucide-react";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SITE } from "@/content/site";
 import { KENAPA_TAMPILIN, MASALAH_POINTS, PROSES_STEPS } from "@/content/home";
@@ -202,19 +202,66 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-16 rounded-2xl border border-line bg-cream-dim p-8 text-center">
-            <p className="eyebrow text-accent">Masih bingung atau ragu dengan harga yang akan dibayarkan?</p>
-            <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-ink max-w-2xl mx-auto">
-              Coba simulasi harga. Pilih paket, domain, dan hosting — lihat totalnya jelas, tanpa kejutan.
-            </h3>
-            <a
-              href="/katalog"
-              className="mt-8 inline-flex items-center gap-2 button-primary"
-            >
-              <Calculator className="h-4 w-4" />
-              Simulasi Harga
-            </a>
+      <section className="border-y border-line bg-cream-dim">
+        <div className="section-shell py-16 sm:py-24">
+          <div className="relative rounded-3xl overflow-hidden bg-ink p-8 sm:p-12 lg:p-16">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-lime/10" />
+            <div className="relative grid gap-8 lg:grid-cols-2 lg:items-center">
+              <div className="max-w-xl">
+                <p className="eyebrow text-lime">Kalkulasi Harga Transparan</p>
+                <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.04em] text-white sm:text-4xl">
+                  Tahu pasti berapa budget yang dibutuhkan <span className="text-accent">sebelum memesan</span>.
+                </h2>
+                <p className="mt-5 text-lg leading-7 text-white/70">
+                  Pilih paket, domain, dan hosting — sistem kami hitung totalnya otomatis.
+                  Tanpa biaya tersembunyi, tanpa tekanan sales.
+                </p>
+                <ul className="mt-8 space-y-3" role="list">
+                  {[
+                    "Harga paket website (sudah termasuk desain custom & revisi)",
+                    "Biaya domain per tahun (.com, .id, .my.id, dll)",
+                    "Hosting: Gratis untuk Landing Page & UMKM",
+                    "Opsional CMS kelola artikel/konten sendiri (+Rp500rb)",
+                    "Potongan referral Rp50.000 jika punya kode",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-white/80">
+                      <span className="mt-1 flex-shrink-0 h-5 w-5 rounded-full bg-accent/20 flex items-center justify-center">
+                        <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="relative">
+                <div className="absolute -inset-4 rounded-3xl border border-white/10" />
+                <a
+                  href="/katalog"
+                  className="relative inline-flex items-center gap-3 rounded-xl bg-accent px-8 py-5 text-lg font-semibold text-white shadow-[0_8px_30px_rgba(234,179,8,0.3)] hover:bg-accent-deep transition-all duration-200 hover:scale-[1.02]"
+                >
+                  <span className="flex items-center justify-center h-10 w-10 rounded-lg bg-white/10">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </span>
+                  <span>Mulai Simulasi Harga</span>
+                  <svg className="h-5 w-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+                <p className="mt-5 text-sm text-white/50 text-center sm:text-left">
+                  Tidak ada komitmen · Bisa dibatalkan kapan saja · Estimasi akurat
+                </p>
+              </div>
+            </div>
+            <div className="absolute bottom-4 right-4 hidden lg:block opacity-5">
+              <svg className="h-32 w-32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
           </div>
         </div>
       </section>
