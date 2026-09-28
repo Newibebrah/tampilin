@@ -66,7 +66,7 @@ export default function HomePage() {
                     <p className="tag-mono text-ink-muted">Ringkasan brand</p>
                     <p className="mt-2 text-lg font-semibold tracking-[-0.03em]">Bisnis lebih mudah ditemukan.</p>
                   </div>
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-cream-dim text-accent">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-cream-dim text-accent">  
                     <Sparkles className="h-5 w-5" />
                   </span>
                 </div>
