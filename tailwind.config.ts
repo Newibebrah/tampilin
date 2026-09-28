@@ -8,7 +8,6 @@ const config: Config = {
     "./content/**/*.{ts,tsx}",
     "./lib/**/*.{ts,tsx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -34,20 +33,6 @@ const config: Config = {
         "border-strong": "rgba(17,17,17,0.16)",
         // Glass
         glass: "rgba(245,241,234,0.72)",
-        // Dark mode overrides (applied via .dark class)
-        dark: {
-          paper: "#0A0A0A",
-          "paper-subtle": "#1A1A1A",
-          "paper-deep": "#222222",
-          ink: "#F5F1EA",
-          "ink-muted": "#B0B0B0",
-          "ink-subtle": "#7A7A7A",
-          border: "rgba(245,241,234,0.12)",
-          "border-strong": "rgba(245,241,234,0.24)",
-          glass: "rgba(10,10,10,0.72)",
-          "flame-subtle": "#3D1A12",
-          "forest-subtle": "#0D2018",
-        },
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],

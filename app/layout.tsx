@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className="bg-paper" suppressHydrationWarning>
+    <html lang="id" className="bg-paper">
       <head />
       <body className="min-h-screen bg-paper text-ink antialiased font-sans">
         <a href="#main-content" className="skip-link">

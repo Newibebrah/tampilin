@@ -14,7 +14,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
-    const baseStyles = "relative inline-flex items-center justify-center gap-2 font-semibold transition-all duration-micro active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper dark:focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-50";
+    const baseStyles = "relative inline-flex items-center justify-center gap-2 font-semibold transition-all duration-micro active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:pointer-events-none disabled:opacity-50";
 
     const variants = {
       primary: "rounded-sharp bg-flame text-paper hover:bg-flame-hover hover:gap-3",

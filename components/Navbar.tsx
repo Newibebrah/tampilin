@@ -3,25 +3,17 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, Sun, Moon, Command, Sparkles, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Menu, MessageCircle, Sparkles } from "lucide-react";
 import { cn, waLink } from "@/lib/utils";
 import { SITE, NAV_LINKS } from "@/content/site";
-import { useTheme } from "next-themes";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/Drawer";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const { setTheme, resolvedTheme } = useTheme();
-  const magneticRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -50,12 +42,6 @@ export function Navbar() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
-
-  const toggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
-  };
-
-  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <>
@@ -88,10 +74,10 @@ export function Navbar() {
               }
             }}
           >
-            <span className="grid h-9 w-9 place-items-center rounded-sharp bg-ink text-body-sm font-bold text-paper">
+            <span className="grid h-10 w-10 place-items-center rounded-soft bg-flame text-heading-sm font-extrabold text-paper shadow-glow-flame">
               t.
             </span>
-            <span className="text-heading-sm font-semibold tracking-[-0.02em] text-ink">
+            <span className="text-heading-sm font-bold tracking-[-0.03em] text-ink">
               tampilin<span className="text-flame">.</span>
             </span>
           </Link>
@@ -103,8 +89,10 @@ export function Navbar() {
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
                 className={cn(
-                  "relative rounded-sharp px-4 py-2 text-body-sm font-medium text-ink-muted transition-all duration-micro hover:text-ink hover:bg-paper-subtle",
-                  pathname === link.href && "text-ink bg-paper-subtle"
+                  "relative rounded-soft px-4 py-2.5 text-body-sm font-semibold text-ink-muted transition-all duration-micro hover:bg-paper-subtle hover:text-ink",
+                  "after:absolute after:inset-x-4 after:-bottom-px after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-flame after:transition-transform after:duration-standard",
+                  "hover:after:scale-x-100",
+                  pathname === link.href && "bg-paper-subtle text-ink after:scale-x-100"
                 )}
                 onClick={(e) => {
                   if (link.href === "/" && pathname === "/") {
@@ -119,28 +107,6 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2 lg:gap-3">
-            <button
-              onClick={toggleTheme}
-              className="button-icon lg:hidden"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-              aria-pressed={isDark}
-            >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
-
-            <button
-              ref={magneticRef}
-              onClick={() => {
-                // Command palette trigger
-                window.dispatchEvent(new CustomEvent("cmdk:open"));
-              }}
-              className="hidden lg:button-icon"
-              aria-label="Buka command palette (⌘K)"
-            >
-              <Command className="h-5 w-5" />
-              <kbd className="sr-only">⌘K</kbd>
-            </button>
-
             <Link
               href={waLink()}
               target="_blank"
@@ -184,24 +150,6 @@ export function Navbar() {
                       <ArrowUpRight className="h-5 w-5 text-ink-muted" />
                     </Link>
                   ))}
-                  <div className="pt-4 border-t border-border">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setOpen(false);
-                        window.dispatchEvent(new CustomEvent("cmdk:open"));
-                      }}
-                      className="flex w-full items-center justify-between gap-4 py-3 text-body font-semibold text-ink transition-colors duration-micro hover:text-flame"
-                    >
-                      <span className="flex items-center gap-3">
-                        <Command className="h-4 w-4" />
-                        Cari halaman
-                      </span>
-                      <kbd className="mono-xs rounded-soft bg-paper-subtle px-2 py-0.5 text-ink-muted">
-                        ⌘K
-                      </kbd>
-                    </button>
-                  </div>
                   <div className="pt-4 border-t border-border">
                     <Link
                       href={waLink()}
