@@ -2,8 +2,9 @@
 
 import { ArrowUpRight, Check, Search, AlertCircle, Copy, Clock, Sparkles, Wallet, Headphones, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { formatIdr, waLink } from "@/lib/utils";
+import { waLink } from "@/lib/utils";
 import { SITE } from "@/content/site";
 import { PAKET } from "@/lib/data";
 import { KENAPA_TAMPILIN, MASALAH_POINTS, PROSES_STEPS } from "@/content/home";
@@ -36,6 +37,7 @@ const SIMULASI_POINTS = [
 const HERO_CHECKLIST = ["Identitas visual", "Halaman yang menjual", "Tombol WhatsApp"];
 
 export default function HomePage() {
+  const router = useRouter();
   const services: Service[] = PAKET.map((p) => ({
     id: p.id,
     name: p.nama,
@@ -254,15 +256,7 @@ export default function HomePage() {
           <div className="mt-14">
             <ServiceGrid
               services={services}
-              onOrder={(id) => {
-                const pkg = PAKET.find((p) => p.id === id);
-                if (pkg) {
-                  window.open(
-                    waLink(`Halo ${SITE.name}, saya mau pesan paket *${pkg.nama}* (${formatIdr(pkg.hargaDiskon)}).`),
-                    "_blank"
-                  );
-                }
-              }}
+              onOrder={(id) => router.push(`/harga?paket=${id}`)}
             />
           </div>
         </div>

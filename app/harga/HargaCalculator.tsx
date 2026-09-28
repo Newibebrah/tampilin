@@ -8,12 +8,11 @@ import {
   ArrowUpRight, Database, Globe, Layers, Store, RotateCcw, Gift,
 } from "lucide-react";
 import { toast } from "sonner";
-import { cn, formatIdr, waLink } from "@/lib/utils";
+import { cn, formatIdr, waLink, buildOrderMessage } from "@/lib/utils";
 import {
   PAKET, DOMAIN, HOSTING, ADDON, getCmsAddon, DISKON_REFF, REFF_CODES,
   type PaketId, type DomainId, type HostingId, type AddonId,
 } from "@/lib/data";
-import { SITE } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { NumberFlow } from "@/components/sections/AnimatedNumber";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/Drawer";
@@ -176,14 +175,15 @@ export default function HargaCalculator({
   }
 
   const handleOrder = () => {
-    const pkg = getPaket(paket);
-    window.open(
-      waLink(
-        `Halo ${SITE.name}, saya mau pesan paket *${pkg?.nama}* dengan total *${formatIdr(totals.total)}*.`
-      ),
-      "_blank"
-    );
-    toast.success("Mengarahkan ke WhatsApp...");
+    if (!paket) return;
+    window.open(waLink(buildOrderMessage({
+      paket, domain, hosting, addons,
+      reffValid, reffNama,
+      subtotal: totals.subtotal,
+      diskonReff: totals.diskonReff,
+      total: totals.total,
+    })), "_blank");
+    toast.success("Mengarahkan ke WhatsApp dengan detail pesanan...");
   };
 
   const hasCms = addons.includes("cms");

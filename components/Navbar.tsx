@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, MessageCircle, Sparkles } from "lucide-react";
-import { cn, waLink } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { SITE, NAV_LINKS } from "@/content/site";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/Drawer";
 
@@ -107,12 +107,7 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2 lg:gap-3">
-            <Link
-              href={waLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="button-primary hidden lg:inline-flex"
-            >
+            <Link href="/harga" className="button-primary hidden lg:inline-flex">
               <Sparkles className="h-4 w-4" />
               <span>Mulai proyek</span>
               <ArrowUpRight className="h-4 w-4" />
@@ -151,12 +146,7 @@ export function Navbar() {
                     </Link>
                   ))}
                   <div className="pt-4 border-t border-border">
-                    <Link
-                      href={waLink()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="button-primary w-full justify-center"
-                    >
+                    <Link href="/harga" className="button-primary w-full justify-center">
                       <Sparkles className="h-4 w-4" />
                       <span>Mulai proyek</span>
                       <ArrowUpRight className="h-4 w-4" />

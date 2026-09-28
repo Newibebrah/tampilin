@@ -2,9 +2,9 @@
 
 import { ArrowUpRight, Calculator, Clock, Globe } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { formatIdr, waLink } from "@/lib/utils";
-import { SITE } from "@/content/site";
 import { PAKET, HOSTING, ADDON } from "@/lib/data";
 import { Badge } from "@/components/Badge";
 import { ServiceGrid, type Service } from "@/components/sections/ServiceGrid";
@@ -14,6 +14,7 @@ const hostingFor = (id: string) => HOSTING.filter((h) => h.paket.includes(id));
 const addonsFor = (id: string) => ADDON.filter((a) => a.paket.includes(id));
 
 export default function LayananPage() {
+  const router = useRouter();
   const services: Service[] = PAKET.map((p) => ({
     id: p.id,
     name: p.nama,
@@ -103,15 +104,7 @@ export default function LayananPage() {
               </>
             );
           }}
-          onOrder={(id) => {
-            const pkg = PAKET.find((p) => p.id === id);
-            if (pkg) {
-              window.open(
-                waLink(`Halo ${SITE.name}, saya pilih paket *${pkg.nama}* (${formatIdr(pkg.hargaDiskon)}).`),
-                "_blank"
-              );
-            }
-          }}
+          onOrder={(id) => router.push(`/harga?paket=${id}`)}
         />
 
         {/* CUSTOM CTA */}
