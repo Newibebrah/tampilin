@@ -106,10 +106,6 @@
     @apply text-mono-xs text-flame font-semibold uppercase tracking-[0.18em];
   }
 
-  .eyebrow-lime {
-    @apply text-mono-xs text-lime font-semibold uppercase tracking-[0.18em];
-  }
-
   .display-xl {
     @apply font-display text-display-xl text-ink;
   }

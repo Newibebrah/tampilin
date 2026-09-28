@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Badge } from "@/components/Badge";
 import type { Metadata } from "next";
 import { ArrowUpRight, Home, Search } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/content/site";
@@ -20,9 +21,11 @@ export default function NotFound() {
   return (
     <div className="section-shell flex min-h-[70vh] flex-col justify-center py-20 lg:py-24">
       <div className="max-w-3xl">
-        <p className="eyebrow-lime">Error 404</p>
+        <Badge tone="lime" dot>
+          Error 404
+        </Badge>
 
-        <h1 className="mt-7 display-md">
+        <h1 className="mt-7 display-lg">
           Halaman ini tidak
           <br />
           pernah ada.
@@ -49,7 +52,7 @@ export default function NotFound() {
         <p className="text-mono-xs uppercase tracking-[0.18em] text-ink-subtle">
           Mungkin Anda mencari
         </p>
-        <ul className="mt-6 grid gap-px overflow-hidden rounded-sharp border border-border bg-border sm:grid-cols-2">
+        <ul className="mt-6 grid gap-px overflow-hidden rounded-card border border-border bg-border sm:grid-cols-2">
           {SUGGESTIONS.map((item, index) => (
             <li key={item.href}>
               <Link

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { RotateCcw, Home } from "lucide-react";
+import { Badge } from "@/components/Badge";
 
 export default function Error({
   error,
@@ -18,9 +19,10 @@ export default function Error({
   return (
     <div className="section-shell flex min-h-[70vh] flex-col justify-center py-20 lg:py-24">
       <div className="max-w-2xl">
-        <p className="eyebrow-lime">Terjadi kesalahan</p>
-
-        <h1 className="mt-7 display-md">
+        <Badge tone="lime" dot>
+          Terjadi kesalahan
+        </Badge>
+        <h1 className="mt-7 display-lg">
           Ada yang tidak
           <br />
           beres di sini.
