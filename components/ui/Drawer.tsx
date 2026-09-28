@@ -17,7 +17,7 @@ const DrawerOverlay = React.forwardRef<
   <DrawerPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:pointer-events-none",
       className
     )}
     {...props}
@@ -34,7 +34,7 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed z-50 flex w-full flex-col gap-4 rounded-t-[16px] border border-border bg-paper p-6 shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=closed]:fade-out-0 data-[state=open]:slide-in-from-bottom data-[state=open]:fade-in-0",
+        "fixed inset-x-0 bottom-0 z-50 flex w-full flex-col gap-4 rounded-t-[16px] border border-border bg-paper p-6 shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=closed]:fade-out-0 data-[state=open]:slide-in-from-bottom data-[state=open]:fade-in-0 data-[state=closed]:pointer-events-none",
         className
       )}
       {...props}

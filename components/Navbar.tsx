@@ -113,7 +113,7 @@ export function Navbar() {
               <ArrowUpRight className="h-4 w-4" />
             </Link>
 
-            <Drawer>
+            <Drawer open={open} onOpenChange={setOpen}>
               <DrawerTrigger asChild>
                 <button
                   type="button"
@@ -124,7 +124,7 @@ export function Navbar() {
                   <Menu className="h-5 w-5" />
                 </button>
               </DrawerTrigger>
-              <DrawerContent className="h-[100dvh] rounded-none p-0 bg-paper">
+              <DrawerContent className="inset-0 h-[100dvh] rounded-none p-0 bg-paper">
                 <DrawerHeader className="p-6 border-b border-border">
                   <DrawerTitle className="text-heading-lg font-semibold">
                     Navigasi
@@ -135,6 +135,7 @@ export function Navbar() {
                     <Link
                       key={link.href}
                       href={link.href}
+                      onClick={() => setOpen(false)}
                       className={cn(
                         "flex min-h-14 items-center justify-between gap-4 py-3 text-heading-sm font-semibold text-ink transition-colors duration-micro hover:text-flame-hover",
                         pathname === link.href && "text-flame-hover"
