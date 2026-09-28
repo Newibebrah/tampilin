@@ -56,13 +56,13 @@ export function HorizontalScroll({
     <div className={cn("relative", className)}>
       <div
         ref={containerRef}
-        className="scrollbar-hide -mb-4 flex snap-x snap-mandatory overflow-x-auto pb-4"
+        className="scrollbar-hide -mb-4 flex snap-x snap-mandatory overflow-x-auto pb-4 md:-mb-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:snap-none"
         style={{ gap: `${gap}px` }}
       >
         {children}
       </div>
 
-      <div className="mt-2 flex items-center gap-2">
+      <div className="mt-2 flex items-center gap-2 md:hidden">
         <button
           type="button"
           onClick={() => nudge(-1)}
@@ -102,7 +102,7 @@ export function TimelineStep({ step, index }: { step: TimelineStepData; index: n
 
   return (
     <motion.article
-      className="flex w-[300px] shrink-0 snap-start flex-col rounded-card border border-border bg-paper-subtle p-7 transition-all duration-standard hover:-translate-y-1 hover:border-flame hover:bg-paper hover:shadow-layer-2 sm:w-[340px]"
+      className="flex w-[300px] shrink-0 snap-start flex-col rounded-card border border-border bg-paper-subtle p-7 transition-all duration-standard hover:-translate-y-1 hover:border-flame hover:bg-paper hover:shadow-layer-2 sm:w-[340px] md:w-auto"
       initial={{ opacity: 0, x: 24 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-60px" }}
